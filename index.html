@@ -93,6 +93,24 @@ details[open] summary{border-bottom:1px solid rgba(255,255,255,.09)}
   padding:8px 14px}
 footer{margin-top:56px;color:rgba(255,255,255,.42);font-size:12.5px;line-height:1.6}
 footer b{color:rgba(255,255,255,.62)}
+.given{background:#191b20;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:10px 14px 12px;
+  margin:0 0 10px}
+.ghead{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);margin-bottom:8px}
+.frow{display:flex;gap:10px;margin-bottom:6px;align-items:flex-start}
+.flab{flex:0 0 168px;font-size:12px;font-weight:600;color:rgba(255,255,255,.62);padding-top:7px}
+.fin{flex:1;background:#282a31;border:1px solid rgba(255,255,255,.09);border-radius:7px;color:rgba(255,255,255,.88);
+  font:13px/1.5 Inter,Arial,sans-serif;padding:6px 10px;min-width:0}
+.fin:focus{outline:none;border-color:#ff5533}
+textarea.fin{resize:vertical;font-size:12.5px}
+.pctl{display:inline-flex;align-items:center;gap:6px}
+.tgl{border:1px solid rgba(255,255,255,.09);background:#282a31;border-radius:7px;padding:4px 10px;
+  font:600 11.5px Inter,Arial;color:rgba(255,255,255,.62);cursor:pointer}
+.tgl.on{border-color:#ff5533;color:#fff;background:rgba(255,85,51,.15)}
+.pv{font:12.8px/1.55 'SF Mono',Consolas,Menlo,monospace;white-space:pre-wrap;
+  word-break:break-word;color:rgba(255,255,255,.88);padding:12px 14px}
+.pv .ph{color:#ff5533;font-weight:700}
+.pv .phv{color:#ffb59f}
 </style></head><body>
 <header class="top"><div class="wrap">
   <div class="prog">МАРАФОН «ИИ В РАБОТЕ» · АСТ-ЛИТРЕС-ЭКСМО</div>
@@ -433,7 +451,18 @@ footer b{color:rgba(255,255,255,.62)}
   <div class="body">
     <p class="why">Аннотация без ЦА и ограничений — это средняя аннотация интернета. Три варианта тона дают выбор, а не переписывание.</p>
     <div class="bad"><span class="blab">Плохой промпт</span><span class="btext">«Напиши аннотацию к книге»</span></div><details class="badrun"><summary>Что выдал плохой промпт · GigaChat</summary><div class="rbody"><p>Чтобы написать качественную аннотацию, мне нужно узнать название книги, её жанр (например: роман, научная фантастика, детектив), автора и основные темы произведения. Уточните эту информацию, пожалуйста!</p></div></details>
-    <div class="prompt"><div class="phead"><span>Отправить в модель</span><button class="copy" data-src="p-k1_annot"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button></div><pre class="ptext" id="p-k1_annot">Ты — редактор издательства с 10-летним опытом в жанровой прозе. Напиши аннотацию для задней обложки. Книга: городское фэнтези «Хроники тумана», том 1. Синопсис: Городское фэнтези. Петербург, наши дни. Корректор Ася Морозова начинает слышать голоса в ночном тумане и обнаруживает во мгле второй город — отражение Петербурга, где живут те, кого забыли. Жители второго города исчезают: их стирает существо, питающееся забвением. Ася — единственная, кто помнит исчезнувших. В финале она выбирает: закрыть проход и спасти свой город или остаться во мгле, чтобы помнить всех. Открытый финал: Ася уходит в туман, но оставляет дневник. Романтической линии нет. Возраст героини — 27 лет. ЦА — читатели 25–35, любящие атмосферное городское фэнтези. Требования: до 400 знаков, без спойлеров финала, без штампов («книга, которую…», «лучший роман года»). Дай 3 варианта тона: загадочный, эмоциональный, динамичный.</pre></div>
+    
+  <div class="given"><div class="ghead">Дано — подставьте свои данные</div><div class="frow"><label class="flab" for="f-k1_annot-kniga">Книга</label><input class="fin" id="f-k1_annot-kniga" data-case="k1_annot" data-f="kniga" value="городское фэнтези «Хроники тумана», том 1"></div><div class="frow"><label class="flab" for="f-k1_annot-sinopsis">Синопсис</label><textarea class="fin" id="f-k1_annot-sinopsis" data-case="k1_annot" data-f="sinopsis" rows="4">Городское фэнтези. Петербург, наши дни. Корректор Ася Морозова начинает слышать голоса в ночном тумане и обнаруживает во мгле второй город — отражение Петербурга, где живут те, кого забыли. Жители второго города исчезают: их стирает существо, питающееся забвением. Ася — единственная, кто помнит исчезнувших. В финале она выбирает: закрыть проход и спасти свой город или остаться во мгле, чтобы помнить всех. Открытый финал: Ася уходит в туман, но оставляет дневник. Романтической линии нет. Возраст героини — 27 лет.</textarea></div><div class="frow"><label class="flab" for="f-k1_annot-ca">Целевая аудитория</label><input class="fin" id="f-k1_annot-ca" data-case="k1_annot" data-f="ca" value="читатели 25–35, любящие атмосферное городское фэнтези"></div><div class="frow"><label class="flab" for="f-k1_annot-obem">Объём</label><input class="fin" id="f-k1_annot-obem" data-case="k1_annot" data-f="obem" value="до 400 знаков"></div><div class="frow"><label class="flab" for="f-k1_annot-tona">Варианты тона</label><input class="fin" id="f-k1_annot-tona" data-case="k1_annot" data-f="tona" value="загадочный, эмоциональный, динамичный"></div></div>
+  <div class="prompt iprompt" data-case="k1_annot">
+    <div class="phead"><span>Хороший промпт</span>
+      <span class="pctl">
+        <button class="tgl on" data-case="k1_annot" data-mode="filled">Заполненный</button>
+        <button class="tgl" data-case="k1_annot" data-mode="tpl">Шаблон</button>
+        <button class="copy cpr" data-case="k1_annot"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button>
+      </span></div>
+    <div class="ptext pv" id="pv-k1_annot"></div>
+  </div>
+  <script type="application/json" class="casedata" data-case="k1_annot">{"tpl": "Ты — редактор издательства с 10-летним опытом в жанровой прозе. Напиши аннотацию для задней обложки. Книга: [[kniga]]. Синопсис: [[sinopsis]] ЦА — [[ca]]. Требования: [[obem]], без спойлеров финала, без штампов («книга, которую…», «лучший роман года»). Дай 3 варианта тона: [[tona]].", "fields": [{"k": "kniga", "label": "Книга"}, {"k": "sinopsis", "label": "Синопсис"}, {"k": "ca", "label": "Целевая аудитория"}, {"k": "obem", "label": "Объём"}, {"k": "tona", "label": "Варианты тона"}]}</script>
     <details><summary>Короткий шаблон — записать в библиотеку</summary>
       <p class="tpl">Роль редактора + жанр и ЦА + до 400 знаков + без спойлеров + 3 варианта тона</p></details>
     <details class="run"><summary>Результат · GigaChat 2 Max</summary><div class="rbody"><div class="mdh">Загадочный тон</div>
@@ -455,7 +484,18 @@ footer b{color:rgba(255,255,255,.62)}
   <div class="body">
     <p class="why">«Сократи» без правил — это лотерея: модель сама решает, чем пожертвовать. Правила сохранения делают сжатие управляемым.</p>
     <div class="bad"><span class="blab">Плохой промпт</span><span class="btext">«Сократи рукопись»</span></div><details class="badrun"><summary>Что выдал плохой промпт · GigaChat</summary><div class="rbody"><p>Уточните, пожалуйста, какую именно рукопись нужно сократить и до какого объема? Или предоставьте саму рукопись сюда — сокращу её прямо здесь.</p></div></details>
-    <div class="prompt"><div class="phead"><span>Отправить в модель</span><button class="copy" data-src="p-k2_synopsis"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button></div><pre class="ptext" id="p-k2_synopsis">Сожми синопсис до 60 слов для каталога прав. Исходник: Городское фэнтези. Петербург, наши дни. Корректор Ася Морозова начинает слышать голоса в ночном тумане и обнаруживает во мгле второй город — отражение Петербурга, где живут те, кого забыли. Жители второго города исчезают: их стирает существо, питающееся забвением. Ася — единственная, кто помнит исчезнувших. В финале она выбирает: закрыть проход и спасти свой город или остаться во мгле, чтобы помнить всех. Открытый финал: Ася уходит в туман, но оставляет дневник. Романтической линии нет. Возраст героини — 27 лет. Правила: сохрани арку героини и главный поворот; финал не раскрывай («открытый финал» сказать можно); последней строкой отдельно перечисли, какие элементы исходника выпали при сжатии.</pre></div>
+    
+  <div class="given"><div class="ghead">Дано — подставьте свои данные</div><div class="frow"><label class="flab" for="f-k2_synopsis-obem">Объём сжатия</label><input class="fin" id="f-k2_synopsis-obem" data-case="k2_synopsis" data-f="obem" value="60 слов"></div><div class="frow"><label class="flab" for="f-k2_synopsis-naznachenie">Назначение (для…)</label><input class="fin" id="f-k2_synopsis-naznachenie" data-case="k2_synopsis" data-f="naznachenie" value="каталога прав"></div><div class="frow"><label class="flab" for="f-k2_synopsis-ishodnik">Исходный текст</label><textarea class="fin" id="f-k2_synopsis-ishodnik" data-case="k2_synopsis" data-f="ishodnik" rows="4">Городское фэнтези. Петербург, наши дни. Корректор Ася Морозова начинает слышать голоса в ночном тумане и обнаруживает во мгле второй город — отражение Петербурга, где живут те, кого забыли. Жители второго города исчезают: их стирает существо, питающееся забвением. Ася — единственная, кто помнит исчезнувших. В финале она выбирает: закрыть проход и спасти свой город или остаться во мгле, чтобы помнить всех. Открытый финал: Ася уходит в туман, но оставляет дневник. Романтической линии нет. Возраст героини — 27 лет.</textarea></div></div>
+  <div class="prompt iprompt" data-case="k2_synopsis">
+    <div class="phead"><span>Хороший промпт</span>
+      <span class="pctl">
+        <button class="tgl on" data-case="k2_synopsis" data-mode="filled">Заполненный</button>
+        <button class="tgl" data-case="k2_synopsis" data-mode="tpl">Шаблон</button>
+        <button class="copy cpr" data-case="k2_synopsis"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button>
+      </span></div>
+    <div class="ptext pv" id="pv-k2_synopsis"></div>
+  </div>
+  <script type="application/json" class="casedata" data-case="k2_synopsis">{"tpl": "Сожми синопсис до [[obem]] для [[naznachenie]]. Исходник: [[ishodnik]] Правила: сохрани арку героини и главный поворот; финал не раскрывай («открытый финал» сказать можно); последней строкой отдельно перечисли, какие элементы исходника выпали при сжатии.", "fields": [{"k": "obem", "label": "Объём сжатия"}, {"k": "naznachenie", "label": "Назначение (для…)"}, {"k": "ishodnik", "label": "Исходный текст"}]}</script>
     <details><summary>Короткий шаблон — записать в библиотеку</summary>
       <p class="tpl">«Сожми до N слов, сохрани арку героя и ключевые повороты, отметь, что выпало»</p></details>
     <details class="run"><summary>Результат · GigaChat 2 Max</summary><div class="rbody"><p>Городское фэнтези. Корректор Ася слышит голоса и открывает второй Питер — отражение реального, населённое забытыми людьми. Их сотрясает угроза исчезновения от существа, питающегося забвением. Лишь Ася способна вспомнить пропавших. Выбор: закрыть портал ради спасения родного города или остаться среди теней, храня память обо всех. Открытый финал: девушка скрывается в тумане, оставляя дневник.</p>
@@ -470,7 +510,18 @@ footer b{color:rgba(255,255,255,.62)}
   <div class="body">
     <p class="why">Пресс-релиз без «только факты из брифа» обрастает выдуманными деталями — см. автопроверку 3: там ловим ровно эту ошибку.</p>
     <div class="bad"><span class="blab">Плохой промпт</span><span class="btext">«Сделай пресс-релиз»</span></div><details class="badrun"><summary>Что выдал плохой промпт · GigaChat</summary><div class="rbody"><p>Уточните детали: событие, компания, целевая аудитория, основные тезисы, ключевые факты, какие-то особенные моменты, которых нужно коснуться? Пресс-релизы — дело тонкое, от деталей зависит многое!</p></div></details>
-    <div class="prompt"><div class="phead"><span>Отправить в модель</span><button class="copy" data-src="p-k3_press"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button></div><pre class="ptext" id="p-k3_press">Ты — PR-менеджер издательства. Напиши пресс-релиз о выходе тома 3. Факты из брифа: серия «Хроники тумана», автор Анна Морозова. Том 3 «Голоса мглы» выходит 15 сентября. Суммарный тираж первых двух томов — 19 000 экз. Права на экранизацию проданы онлайн-кинотеатру (название пока под NDA). Аудиоверсию читает Дарья Мельник. Автор впервые встретится с читателями на ярмарке Non/fiction в декабре. Используй ТОЛЬКО факты из брифа — ничего не добавляй и не додумывай. Структура: заголовок (до 10 слов), лид-абзац (кто/что/когда), абзац о серии, цитата редактора (пометь как [СОГЛАСОВАТЬ]), справка об авторе. До 1500 знаков.</pre></div>
+    
+  <div class="given"><div class="ghead">Дано — подставьте свои данные</div><div class="frow"><label class="flab" for="f-k3_press-infopovod">Инфоповод (о чём)</label><input class="fin" id="f-k3_press-infopovod" data-case="k3_press" data-f="infopovod" value="выходе тома 3"></div><div class="frow"><label class="flab" for="f-k3_press-brif">Бриф — только эти факты</label><textarea class="fin" id="f-k3_press-brif" data-case="k3_press" data-f="brif" rows="4">Факты из брифа: серия «Хроники тумана», автор Анна Морозова. Том 3 «Голоса мглы» выходит 15 сентября. Суммарный тираж первых двух томов — 19 000 экз. Права на экранизацию проданы онлайн-кинотеатру (название пока под NDA). Аудиоверсию читает Дарья Мельник. Автор впервые встретится с читателями на ярмарке Non/fiction в декабре.</textarea></div><div class="frow"><label class="flab" for="f-k3_press-obem">Объём</label><input class="fin" id="f-k3_press-obem" data-case="k3_press" data-f="obem" value="До 1500 знаков"></div></div>
+  <div class="prompt iprompt" data-case="k3_press">
+    <div class="phead"><span>Хороший промпт</span>
+      <span class="pctl">
+        <button class="tgl on" data-case="k3_press" data-mode="filled">Заполненный</button>
+        <button class="tgl" data-case="k3_press" data-mode="tpl">Шаблон</button>
+        <button class="copy cpr" data-case="k3_press"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button>
+      </span></div>
+    <div class="ptext pv" id="pv-k3_press"></div>
+  </div>
+  <script type="application/json" class="casedata" data-case="k3_press">{"tpl": "Ты — PR-менеджер издательства. Напиши пресс-релиз о [[infopovod]]. [[brif]] Используй ТОЛЬКО факты из брифа — ничего не добавляй и не додумывай. Структура: заголовок (до 10 слов), лид-абзац (кто/что/когда), абзац о серии, цитата редактора (пометь как [СОГЛАСОВАТЬ]), справка об авторе. [[obem]].", "fields": [{"k": "infopovod", "label": "Инфоповод (о чём)"}, {"k": "brif", "label": "Бриф — только эти факты"}, {"k": "obem", "label": "Объём"}]}</script>
     <details><summary>Короткий шаблон — записать в библиотеку</summary>
       <p class="tpl">Роль PR + инфоповод + только факты из брифа + структура: заголовок, лид, цитата, справка</p></details>
     <details class="run"><summary>Результат · GigaChat 2 Max</summary><div class="rbody"><div class="mdh">Выходит третий том «Хроник тумана»</div>
@@ -491,18 +542,25 @@ footer b{color:rgba(255,255,255,.62)}
   <div class="body">
     <p class="why">«Проанализируй» возвращает пересказ. Формат «тема | частота | цитата | рекомендация» возвращает решение.</p>
     <div class="bad"><span class="blab">Плохой промпт</span><span class="btext">«Проанализируй отзывы»</span></div><details class="badrun"><summary>Что выдал плохой промпт · GigaChat</summary><div class="rbody"><p>Пожалуйста, предоставьте сами отзывы — тогда смогу провести подробный анализ!</p></div></details>
-    <div class="prompt"><div class="phead"><span>Отправить в модель</span><button class="copy" data-src="p-k4_reviews"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button></div><pre class="ptext" id="p-k4_reviews">Сгруппируй отзывы читателей по темам. Отзывы:
-
-1. «Сюжет затягивает с первых глав, не могла оторваться два вечера подряд» (Ozon)
+    
+  <div class="given"><div class="ghead">Дано — подставьте свои данные</div><div class="frow"><label class="flab" for="f-k4_reviews-otzyvy">Отзывы</label><textarea class="fin" id="f-k4_reviews-otzyvy" data-case="k4_reviews" data-f="otzyvy" rows="4">1. «Сюжет затягивает с первых глав, не могла оторваться два вечера подряд» (Ozon)
 2. «Атмосфера Петербурга передана волшебно, но последние три главы будто дописывали в спешке» (LiveLib)
 3. «Обложка красивая, а вот бумага тонкая, текст просвечивает» (Ozon)
 4. «Полкниги ждала, когда начнётся действие. Затянуто» (LiveLib)
 5. «Аудиоверсия прекрасна, чтица попала в героиню идеально» (ЛитРес)
 6. «Опечатки на каждой десятой странице, редактура хромает» (Ozon)
 7. «Финал открытый — это плюс, жду продолжения» (ЛитРес)
-8. «Слишком похоже на "Дозоры", свежих идей мало» (LiveLib)
-
-Таблица: тема | сколько отзывов её касается | характерная цитата | рекомендация издательству одной фразой. Отсортируй по частоте. В конце: топ-3 действия перед запуском тома 3 — отдельным списком.</pre></div>
+8. «Слишком похоже на "Дозоры", свежих идей мало» (LiveLib)</textarea></div><div class="frow"><label class="flab" for="f-k4_reviews-product">Перед запуском чего</label><input class="fin" id="f-k4_reviews-product" data-case="k4_reviews" data-f="product" value="тома 3"></div></div>
+  <div class="prompt iprompt" data-case="k4_reviews">
+    <div class="phead"><span>Хороший промпт</span>
+      <span class="pctl">
+        <button class="tgl on" data-case="k4_reviews" data-mode="filled">Заполненный</button>
+        <button class="tgl" data-case="k4_reviews" data-mode="tpl">Шаблон</button>
+        <button class="copy cpr" data-case="k4_reviews"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button>
+      </span></div>
+    <div class="ptext pv" id="pv-k4_reviews"></div>
+  </div>
+  <script type="application/json" class="casedata" data-case="k4_reviews">{"tpl": "Сгруппируй отзывы читателей по темам. Отзывы:\n\n[[otzyvy]]\n\nТаблица: тема | сколько отзывов её касается | характерная цитата | рекомендация издательству одной фразой. Отсортируй по частоте. В конце: топ-3 действия перед запуском [[product]] — отдельным списком.", "fields": [{"k": "otzyvy", "label": "Отзывы"}, {"k": "product", "label": "Перед запуском чего"}]}</script>
     <details><summary>Короткий шаблон — записать в библиотеку</summary>
       <p class="tpl">«Сгруппируй по темам: частота, цитата, рекомендация» + таблица</p></details>
     <details class="run"><summary>Результат · GigaChat 2 Max</summary><div class="rbody"><div class="tblwrap"><table><thead><tr><th>Тема</th><th>Сколько отзывов</th><th>Характерная цитата</th><th>Рекомендация издательству одной фразой</th></tr></thead><tbody><tr><td>Сюжет/развитие</td><td>3</td><td>«Затягивает с первых глав», «Затянуто», «Свежих идей мало»</td><td>Усилить динамику сюжета и добавить оригинальные идеи</td></tr><tr><td>Атмосфера</td><td>2</td><td>«Петербург передан волшебно», «Последние главы в спешке»</td><td>Сохранять атмосферу города, улучшить финальную часть</td></tr><tr><td>Оформление</td><td>2</td><td>«Бумага тонкая», «Текст просвечивает»</td><td>Улучшить качество бумаги и печати</td></tr><tr><td>Редактура</td><td>1</td><td>«Редактура хромает, опечатки через каждые десять страниц»</td><td>Повысить внимание к корректуре</td></tr><tr><td>Аудиокнига</td><td>1</td><td>«Чтица попала в героиню идеально»</td><td>Продолжить сотрудничество с талантливыми чтецами</td></tr><tr><td>Финал</td><td>1</td><td>«Открытый финал — это плюс, жду продолжения»</td><td>Оставлять читателя заинтересованным открытым финалом</td></tr></tbody></table></div>
@@ -523,7 +581,18 @@ footer b{color:rgba(255,255,255,.62)}
     <div class="bad"><span class="blab">Плохой промпт</span><span class="btext">«Придумай название»</span></div><details class="badrun"><summary>Что выдал плохой промпт · GigaChat</summary><div class="rbody"><p>Для того чтобы придумать хорошее название, уточните пожалуйста:</p>
 <ul><li>Что именно нужно назвать (продукт, компания, мероприятие)?</li><li>Какие цели вы ставите перед названием?</li><li>Есть ли какие-то ограничения или пожелания?</li></ul>
 <p>Тогда я смогу предложить вам несколько интересных вариантов!</p></div></details>
-    <div class="prompt"><div class="phead"><span>Отправить в модель</span><button class="copy" data-src="p-k5_title"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button></div><pre class="ptext" id="p-k5_title">Издательство запускает новую подростковую серию: научная фантастика о первом поколении, родившемся на Марсе (13–17 лет, темы взросления и идентичности). Предложи 10 вариантов названия серии. Таблица: название | какой смысл несёт | риски (штамп? занято? двусмысленно?) | оценка запоминаемости 1–5. Затем назови свой топ-3 с обоснованием одной фразой.</pre></div>
+    
+  <div class="given"><div class="ghead">Дано — подставьте свои данные</div><div class="frow"><label class="flab" for="f-k5_title-seria">Тип серии</label><input class="fin" id="f-k5_title-seria" data-case="k5_title" data-f="seria" value="подростковую серию"></div><div class="frow"><label class="flab" for="f-k5_title-opisanie">Описание</label><input class="fin" id="f-k5_title-opisanie" data-case="k5_title" data-f="opisanie" value="научная фантастика о первом поколении, родившемся на Марсе"></div><div class="frow"><label class="flab" for="f-k5_title-ca">Аудитория и темы</label><input class="fin" id="f-k5_title-ca" data-case="k5_title" data-f="ca" value="13–17 лет, темы взросления и идентичности"></div><div class="frow"><label class="flab" for="f-k5_title-n">Сколько вариантов</label><input class="fin" id="f-k5_title-n" data-case="k5_title" data-f="n" value="10"></div></div>
+  <div class="prompt iprompt" data-case="k5_title">
+    <div class="phead"><span>Хороший промпт</span>
+      <span class="pctl">
+        <button class="tgl on" data-case="k5_title" data-mode="filled">Заполненный</button>
+        <button class="tgl" data-case="k5_title" data-mode="tpl">Шаблон</button>
+        <button class="copy cpr" data-case="k5_title"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button>
+      </span></div>
+    <div class="ptext pv" id="pv-k5_title"></div>
+  </div>
+  <script type="application/json" class="casedata" data-case="k5_title">{"tpl": "Издательство запускает новую [[seria]]: [[opisanie]] ([[ca]]). Предложи [[n]] вариантов названия серии. Таблица: название | какой смысл несёт | риски (штамп? занято? двусмысленно?) | оценка запоминаемости 1–5. Затем назови свой топ-3 с обоснованием одной фразой.", "fields": [{"k": "seria", "label": "Тип серии"}, {"k": "opisanie", "label": "Описание"}, {"k": "ca", "label": "Аудитория и темы"}, {"k": "n", "label": "Сколько вариантов"}]}</script>
     <details><summary>Короткий шаблон — записать в библиотеку</summary>
       <p class="tpl">Контекст серии + ЦА + «10 вариантов: смысл, риски, проверка на штампы»</p></details>
     <details class="run"><summary>Результат · GigaChat 2 Max</summary><div class="rbody"><div class="tblwrap"><table><thead><tr><th>Название</th><th>Смысл</th><th>Риски</th><th>Оценка &lt;br&gt;запоминаемости</th></tr></thead><tbody><tr><td>Красное поколение</td><td>Первое поколение марсиан</td><td>Возможна путаница</td><td>4</td></tr><tr><td>Дети красной планеты</td><td>Подчёркивает связь с Марсом</td><td>Штампованное звучание</td><td>3</td></tr><tr><td>Марсианские хроники</td><td>Историчность первых шагов человечества</td><td>Классическое клише</td><td>2</td></tr><tr><td>Марс-Рожденные</td><td>Прямая отсылка к месту рождения</td><td>Сложность восприятия</td><td>3</td></tr><tr><td>Новый мир новых людей</td><td>Концепция начала новой цивилизации</td><td>Неоригинальный слоган</td><td>3</td></tr><tr><td>Поколение межпланетников</td><td>Ощущение принадлежности двум мирам</td><td>Может показаться громоздким</td><td>4</td></tr><tr><td>Грани Красной Земли</td><td>Символизм границ и открытий</td><td>Двойственность трактовки</td><td>4</td></tr><tr><td>Мы — первые</td><td>Эмоциональная гордость первопроходцев</td><td>Очень распространённое выражение</td><td>2</td></tr><tr><td>Новые обитатели Марса</td><td>Акцентирует внимание на новизне жизни</td><td>Стандартное описание событий</td><td>3</td></tr><tr><td>Ключ от двух планет</td><td>Идея двойной идентичности</td><td>Возможно недостаточно понятно</td><td>4</td></tr></tbody></table></div>
@@ -554,7 +623,18 @@ footer b{color:rgba(255,255,255,.62)}
 <p>С уважением,<br>[Ваше имя или название организации]</p>
 <hr>
 <p>Выбирайте формулировки, исходя из конкретной ситуации и особенностей вашего проекта.</p></div></details>
-    <div class="prompt"><div class="phead"><span>Отправить в модель</span><button class="copy" data-src="p-k6_letter"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button></div><pre class="ptext" id="p-k6_letter">Ты — ведущий редактор. Напиши автору отказ по рукописи «Сад камней» (семейная сага). Причины из внутренней рецензии: 1) первые 100 страниц — экспозиция без конфликта; 2) главная героиня пассивна до середины книги; 3) финал использует «рояль в кустах» — внезапное наследство. Тон уважительный и конкретный: покажи, что рукопись читали. Для каждой причины — что именно улучшить. Заверши приглашением прислать доработанную версию. Без шаблонов («к сожалению, ваш текст нам не подходит»). До 1200 знаков.</pre></div>
+    
+  <div class="given"><div class="ghead">Дано — подставьте свои данные</div><div class="frow"><label class="flab" for="f-k6_letter-rukopis">Рукопись</label><input class="fin" id="f-k6_letter-rukopis" data-case="k6_letter" data-f="rukopis" value="«Сад камней» (семейная сага)"></div><div class="frow"><label class="flab" for="f-k6_letter-prichiny">Причины из рецензии</label><textarea class="fin" id="f-k6_letter-prichiny" data-case="k6_letter" data-f="prichiny" rows="4">1) первые 100 страниц — экспозиция без конфликта; 2) главная героиня пассивна до середины книги; 3) финал использует «рояль в кустах» — внезапное наследство.</textarea></div><div class="frow"><label class="flab" for="f-k6_letter-obem">Объём</label><input class="fin" id="f-k6_letter-obem" data-case="k6_letter" data-f="obem" value="До 1200 знаков"></div></div>
+  <div class="prompt iprompt" data-case="k6_letter">
+    <div class="phead"><span>Хороший промпт</span>
+      <span class="pctl">
+        <button class="tgl on" data-case="k6_letter" data-mode="filled">Заполненный</button>
+        <button class="tgl" data-case="k6_letter" data-mode="tpl">Шаблон</button>
+        <button class="copy cpr" data-case="k6_letter"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button>
+      </span></div>
+    <div class="ptext pv" id="pv-k6_letter"></div>
+  </div>
+  <script type="application/json" class="casedata" data-case="k6_letter">{"tpl": "Ты — ведущий редактор. Напиши автору отказ по рукописи [[rukopis]]. Причины из внутренней рецензии: [[prichiny]] Тон уважительный и конкретный: покажи, что рукопись читали. Для каждой причины — что именно улучшить. Заверши приглашением прислать доработанную версию. Без шаблонов («к сожалению, ваш текст нам не подходит»). [[obem]].", "fields": [{"k": "rukopis", "label": "Рукопись"}, {"k": "prichiny", "label": "Причины из рецензии"}, {"k": "obem", "label": "Объём"}]}</script>
     <details><summary>Короткий шаблон — записать в библиотеку</summary>
       <p class="tpl">Роль редактора + причины из рецензии + уважительный тон + что улучшить + без шаблонных фраз</p></details>
     <details class="run"><summary>Результат · GigaChat 2 Max</summary><div class="rbody"><p>Уважаемый автор!</p>
@@ -633,7 +713,18 @@ footer b{color:rgba(255,255,255,.62)}
 | 17 июля    | Video           | YouTube          | Гостевой эфир с тренером       |
 | 24 июля    | Email рассылка  | Email-сервис     | Акция на спортивное питание   |</pre>
 <p>Такой план поможет структурировать работу над контентом и сделает процесс его подготовки и размещения систематичным и результативным.</p></div></details>
-    <div class="prompt"><div class="phead"><span>Отправить в модель</span><button class="copy" data-src="p-k7_plan"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button></div><pre class="ptext" id="p-k7_plan">Составь контент-план соцсетей издательства на сентябрь. Новинки августа: 1) «Голоса мглы» — том 3 городского фэнтези «Хроники тумана» (предзаказ с 20.08); 2) «Кухня без рецептов» — кулинарное эссе Марка Штейна; 3) переиздание «Стеклянного сада» Веры Ильиной с новой обложкой. Календарь: 12 постов, по 3 в неделю. Таблица: дата | формат (карточки/видео/текст/розыгрыш) | тезис поста одной фразой | CTA. Посты о «Голосах мглы» должны нарастать к релизу 15 сентября. Минимум 3 поста не о продажах (комьюнити: обсуждения, закулисье редакции).</pre></div>
+    
+  <div class="given"><div class="ghead">Дано — подставьте свои данные</div><div class="frow"><label class="flab" for="f-k7_plan-mesyac">Месяц</label><input class="fin" id="f-k7_plan-mesyac" data-case="k7_plan" data-f="mesyac" value="сентябрь"></div><div class="frow"><label class="flab" for="f-k7_plan-novinki">Новинки месяца</label><textarea class="fin" id="f-k7_plan-novinki" data-case="k7_plan" data-f="novinki" rows="4">Новинки августа: 1) «Голоса мглы» — том 3 городского фэнтези «Хроники тумана» (предзаказ с 20.08); 2) «Кухня без рецептов» — кулинарное эссе Марка Штейна; 3) переиздание «Стеклянного сада» Веры Ильиной с новой обложкой.</textarea></div><div class="frow"><label class="flab" for="f-k7_plan-chastota">Частота</label><input class="fin" id="f-k7_plan-chastota" data-case="k7_plan" data-f="chastota" value="12 постов, по 3 в неделю"></div><div class="frow"><label class="flab" for="f-k7_plan-reliz">Промо-релиз (о ком посты)</label><input class="fin" id="f-k7_plan-reliz" data-case="k7_plan" data-f="reliz" value="«Голосах мглы»"></div><div class="frow"><label class="flab" for="f-k7_plan-data">Дата релиза</label><input class="fin" id="f-k7_plan-data" data-case="k7_plan" data-f="data" value="15 сентября"></div></div>
+  <div class="prompt iprompt" data-case="k7_plan">
+    <div class="phead"><span>Хороший промпт</span>
+      <span class="pctl">
+        <button class="tgl on" data-case="k7_plan" data-mode="filled">Заполненный</button>
+        <button class="tgl" data-case="k7_plan" data-mode="tpl">Шаблон</button>
+        <button class="copy cpr" data-case="k7_plan"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Копировать</i></button>
+      </span></div>
+    <div class="ptext pv" id="pv-k7_plan"></div>
+  </div>
+  <script type="application/json" class="casedata" data-case="k7_plan">{"tpl": "Составь контент-план соцсетей издательства на [[mesyac]]. [[novinki]] Календарь: [[chastota]]. Таблица: дата | формат (карточки/видео/текст/розыгрыш) | тезис поста одной фразой | CTA. Посты о [[reliz]] должны нарастать к релизу [[data]]. Минимум 3 поста не о продажах (комьюнити: обсуждения, закулисье редакции).", "fields": [{"k": "mesyac", "label": "Месяц"}, {"k": "novinki", "label": "Новинки месяца"}, {"k": "chastota", "label": "Частота"}, {"k": "reliz", "label": "Промо-релиз (о ком посты)"}, {"k": "data", "label": "Дата релиза"}]}</script>
     <details><summary>Короткий шаблон — записать в библиотеку</summary>
       <p class="tpl">«Календарь на месяц: 12 постов — формат, тезис, CTA; учитывай выход новинок»</p></details>
     <details class="run"><summary>Результат · GigaChat 2 Max</summary><div class="rbody"><div class="mdh">Контент-план публикаций для издательского аккаунта в соцсетях</div>
@@ -802,11 +893,61 @@ footer b{color:rgba(255,255,255,.62)}
 </footer>
 </div>
 <script>
+// ── интерактивные кейсы: [[переменные]] → заполненный промпт ──
+var CASES = {}, MODES = {};
+document.querySelectorAll('script.casedata').forEach(function (s) {
+  CASES[s.dataset.case] = JSON.parse(s.textContent);
+  MODES[s.dataset.case] = 'filled';
+});
+function esc(t) {
+  return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function fieldVal(key, k) {
+  var el = document.querySelector('[data-case="' + key + '"][data-f="' + k + '"]');
+  return el ? el.value : '';
+}
+function buildText(key, mode) {
+  var c = CASES[key], t = c.tpl;
+  c.fields.forEach(function (f) {
+    var v = mode === 'tpl' ? '[' + f.label + ']' : fieldVal(key, f.k);
+    t = t.split('[[' + f.k + ']]').join(v);
+  });
+  return t;
+}
+function renderCase(key) {
+  var mode = MODES[key], c = CASES[key], t = esc(c.tpl);
+  c.fields.forEach(function (f) {
+    var v = mode === 'tpl'
+      ? '<span class="ph">[' + esc(f.label) + ']</span>'
+      : '<span class="phv">' + esc(fieldVal(key, f.k)) + '</span>';
+    t = t.split('[[' + f.k + ']]').join(v);
+  });
+  document.getElementById('pv-' + key).innerHTML = t;
+}
+Object.keys(CASES).forEach(renderCase);
+document.addEventListener('input', function (e) {
+  var el = e.target.closest('.fin'); if (!el) return;
+  renderCase(el.dataset.case);
+});
 document.addEventListener('click', function (e) {
+  var tg = e.target.closest('.tgl');
+  if (tg) {
+    MODES[tg.dataset.case] = tg.dataset.mode;
+    tg.parentElement.querySelectorAll('.tgl').forEach(function (b) {
+      b.classList.toggle('on', b === tg);
+    });
+    renderCase(tg.dataset.case);
+    return;
+  }
   var b = e.target.closest('.copy'); if (!b) return;
-  var src = b.dataset.src, t;
-  if (src === 'library') t = document.getElementById('librarytext').textContent;
-  else t = document.getElementById(src).textContent;
+  var t;
+  if (b.classList.contains('cpr')) {
+    t = buildText(b.dataset.case, MODES[b.dataset.case]);
+  } else if (b.dataset.src === 'library') {
+    t = document.getElementById('librarytext').textContent;
+  } else {
+    t = document.getElementById(b.dataset.src).textContent;
+  }
   navigator.clipboard.writeText(t).then(function () {
     b.classList.add('ok'); var i = b.querySelector('i'), old = i.textContent;
     i.textContent = 'Скопировано'; setTimeout(function () {
