@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Структурирование и визуализация — материалы занятия · АСТ-Литрес-ЭКСМО</title>
+<meta name="description" content="Материалы занятия «Структурирование и визуализация»: Mermaid-диаграммы из текста с живым рендером, промпт-шаблоны и генерация SVG-иллюстраций. Марафон «ИИ в работе».">
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#1e2027;color:rgba(255,255,255,.88);
+  font:16px/1.62 Inter,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:0 20px 72px}
+header.top{background:linear-gradient(180deg,#17181d, #1e2027);padding:34px 0 8px;
+  border-bottom:1px solid rgba(255,255,255,.09)}
+header.top .wrap{padding-bottom:18px}
+.prog{font-size:10px;font-weight:800;letter-spacing:.16em;color:#ff5533}
+h1{margin:9px 0 6px;font-size:clamp(24px,5vw,32px);font-weight:800;line-height:1.14;
+  letter-spacing:-.015em;color:#fff}
+h1 em{font-style:normal;color:#ff5533}
+.sub{font-size:14px;color:rgba(255,255,255,.62);max-width:64ch}
+nav.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+nav.jump a{display:inline-flex;align-items:center;gap:7px;background:#32343c;
+  border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:6px 14px;font-size:12.5px;
+  font-weight:600;color:rgba(255,255,255,.88);text-decoration:none}
+nav.jump a:hover{border-color:#ff5533;color:#fff}
+h2{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800;color:#fff;
+  margin:46px 0 4px;letter-spacing:-.01em;scroll-margin-top:16px}
+h2 span{color:#ff5533}
+h2 svg{flex:0 0 auto}
+.lead{color:rgba(255,255,255,.62);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+.intro{background:#282a31;border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:18px 22px;
+  margin-top:26px}
+.intro p{margin:0 0 9px;font-size:14.5px;color:rgba(255,255,255,.62)}
+.intro p:last-child{margin:0}
+.intro b{color:rgba(255,255,255,.88)}
+.card{background:#282a31;border:1px solid rgba(255,255,255,.09);border-left:4px solid var(--c);
+  border-radius:12px;margin-bottom:14px;overflow:hidden;scroll-margin-top:16px}
+.card header{padding:14px 20px 0}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--c)}
+.card h3{margin:4px 0 0;font-size:17.5px;font-weight:700;letter-spacing:-.01em;color:#fff}
+.card .body{padding:10px 20px 16px}
+.why{color:rgba(255,255,255,.62);font-size:14px;margin:6px 0 12px}
+.bad{display:flex;gap:10px;align-items:baseline;background:rgba(239,83,80,.08);
+  border:1px solid rgba(239,83,80,.3);border-radius:8px;padding:8px 12px;margin:0 0 10px}
+.blab{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:#ef5350;white-space:nowrap}
+.btext{font-size:13.5px;color:rgba(255,255,255,.62)}
+.prompt{border:1px solid rgba(255,255,255,.09);border-radius:10px;overflow:hidden;margin:0 0 10px;
+  background:#191b20}
+.phead{display:flex;justify-content:space-between;align-items:center;
+  background:#32343c;border-bottom:1px solid rgba(255,255,255,.09);padding:6px 8px 6px 12px;
+  font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(255,255,255,.42)}
+.copy{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.09);
+  background:#282a31;border-radius:7px;padding:4px 9px;font:600 11.5px Inter,Arial;
+  color:rgba(255,255,255,.88);cursor:pointer}
+.copy:active{transform:scale(.97)}
+.copy.ok{border-color:#2fbf76;color:#2fbf76}
+.ptext{margin:0;padding:12px 14px;font:12.8px/1.55 'SF Mono',Consolas,Menlo,monospace;
+  white-space:pre-wrap;word-break:break-word;color:rgba(255,255,255,.88)}
+details{border:1px solid rgba(255,255,255,.09);border-radius:10px;margin:0 0 10px;background:#282a31}
+details summary{cursor:pointer;padding:9px 14px;font-size:13px;font-weight:600;
+  color:rgba(255,255,255,.62);list-style-position:inside}
+details[open] summary{border-bottom:1px solid rgba(255,255,255,.09)}
+.tpl{margin:0;padding:12px 14px;font-size:14px;font-weight:600;color:rgba(255,255,255,.88)}
+.run summary{color:#6b93f2}
+.badrun summary{color:#ef5350}
+.rbody{padding:12px 16px;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.62);
+  max-height:460px;overflow:auto}
+.rbody p{margin:0 0 10px}
+.rbody b{color:rgba(255,255,255,.88)}
+.rbody code{background:#32343c;border-radius:4px;padding:1px 5px;
+  font:12px 'SF Mono',Consolas,Menlo,monospace;color:rgba(255,255,255,.88)}
+.rbody .mdh{font-weight:800;color:#fff;margin:14px 0 6px;font-size:14px}
+.rbody ul,.rbody ol{margin:0 0 10px;padding-left:22px}
+.rbody li{margin:0 0 4px}
+.rbody hr{border:none;border-top:1px solid rgba(255,255,255,.09);margin:12px 0}
+.rbody .mdcode{background:#191b20;border:1px solid rgba(255,255,255,.09);border-radius:8px;
+  padding:10px 12px;font:12px/1.5 'SF Mono',Consolas,Menlo,monospace;overflow-x:auto;
+  color:rgba(255,255,255,.88)}
+.tblwrap{overflow-x:auto;margin:0 0 12px;border:1px solid rgba(255,255,255,.09);border-radius:8px}
+.rbody table{border-collapse:collapse;width:100%;font-size:12.8px}
+.rbody th{background:#32343c;color:#fff;text-align:left;font-weight:700;
+  padding:8px 12px;border-bottom:2px solid #ff5533;white-space:nowrap}
+.rbody td{padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.09);vertical-align:top;
+  color:rgba(255,255,255,.62)}
+.rbody tr:last-child td{border-bottom:none}
+.rbody tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.libwrap{background:#282a31;border:1px solid rgba(255,85,51,.35);border-radius:14px;
+  padding:20px 22px;margin-top:10px;scroll-margin-top:16px}
+.libwrap p{color:rgba(255,255,255,.62);font-size:14px;margin:0 0 12px}
+.libwrap .copy{background:#ff5533;border-color:#ff5533;color:#fff;font-size:12.5px;
+  padding:8px 14px}
+footer{margin-top:56px;color:rgba(255,255,255,.42);font-size:12.5px;line-height:1.6}
+footer b{color:rgba(255,255,255,.62)}
+.given{background:#191b20;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:10px 14px 12px;
+  margin:0 0 10px}
+.ghead{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);margin-bottom:8px}
+.frow{display:flex;gap:10px;margin-bottom:6px;align-items:flex-start}
+.flab{flex:0 0 168px;font-size:12px;font-weight:600;color:rgba(255,255,255,.62);padding-top:7px}
+.fin{flex:1;background:#282a31;border:1px solid rgba(255,255,255,.09);border-radius:7px;color:rgba(255,255,255,.88);
+  font:13px/1.5 Inter,Arial,sans-serif;padding:6px 10px;min-width:0}
+.fin:focus{outline:none;border-color:#ff5533}
+textarea.fin{resize:vertical;font-size:12.5px}
+.pctl{display:inline-flex;align-items:center;gap:6px}
+.tgl{border:1px solid rgba(255,255,255,.09);background:#282a31;border-radius:7px;padding:4px 10px;
+  font:600 11.5px Inter,Arial;color:rgba(255,255,255,.62);cursor:pointer}
+.tgl.on{border-color:#ff5533;color:#fff;background:rgba(255,85,51,.15)}
+.pv{font:12.8px/1.55 'SF Mono',Consolas,Menlo,monospace;white-space:pre-wrap;
+  word-break:break-word;color:rgba(255,255,255,.88);padding:12px 14px}
+.pv .ph{color:#ff5533;font-weight:700}
+.pv .phv{color:#ffb59f}
+.iprompt.ipbad{border-color:rgba(239,83,80,.45)}
+.iprompt.ipbad .phead{color:#ef5350}
+.iprompt.ipbad .pv .ph{color:#ef5350}
+.iprompt.ipbad .pv .phv{color:#f0a9a7}
+
+.render{border:1px solid rgba(255,255,255,.09);border-radius:10px;background:#fff;overflow:hidden;margin:0 0 4px}
+.rlab{background:#32343c;border-bottom:1px solid rgba(255,255,255,.09);padding:6px 12px;
+  font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+.render pre.mermaid{display:flex;justify-content:center;margin:0;padding:14px;background:#fff}
+.svgwrap{display:flex;justify-content:center;padding:14px;background:#fff}
+.backlink{display:inline-flex;align-items:center;gap:7px;background:#32343c;
+  border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:6px 14px;font-size:12.5px;
+  font-weight:600;color:rgba(255,255,255,.88);text-decoration:none}
+.backlink:hover{border-color:#ff5533;color:#fff}
+</style></head><body>
+<header class="top"><div class="wrap">
+  <div class="prog">МАРАФОН «ИИ В РАБОТЕ» · АСТ-ЛИТРЕС-ЭКСМО · ЗАНЯТИЕ 2</div>
+  <h1>Структурирование и визуализация — <em>диаграммы и картинки из текста</em></h1>
+  <p class="sub">Всё, что на занятии строилось из текста: Mermaid-диаграммы с живым
+  рендером, промпт-шаблоны и SVG-иллюстрации с промптами. Копируйте и заменяйте
+  данные примеров на свои.</p>
+  <nav class="jump"><a href="#mermaid"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4" cy="6" r="2.5"/><circle cx="4" cy="18" r="2.5"/><circle cx="20" cy="12" r="2.5"/><path d="M6.5,6 L12,6 C15,6 17,9 17.5,12"/><path d="M6.5,18 L12,18 C15,18 17,15 17.5,12"/></svg> Mermaid</a><a href="#prompts"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3,4 L15,4 C16,4 17,5 17,6 L17,11 C17,12 16,13 15,13 L9,13 L6,16 L6,13 L5,13 C4,13 3,12 3,11 Z"/><path d="M17,8 L19,8 C20,8 21,9 21,10 L21,15 C21,16 20,17 19,17 L18,17 L18,20 L15,17 L11,17"/></svg> Шаблоны</a><a href="#svg"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Генерация SVG</a><a href="#library"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Вся библиотека</a><a href="index.html" class="backlink">← Занятие 1: промптинг</a></nav>
+</div></header>
+<div class="wrap">
+
+<div class="intro">
+  <p><b>Mermaid:</b> скопируйте код в редактор <a href="https://mermaid.live" style="color:#ff5533">mermaid.live</a> —
+  или отправьте промпт ассистенту и попросите вернуть код Mermaid. Диаграммы ниже
+  отрисованы из этого же кода прямо на странице.</p>
+  <p><b>SVG:</b> отправьте промпт модели, сохраните ответ в файл <code style="background:#32343c;border-radius:4px;padding:1px 5px">картинка.svg</code> —
+  он откроется в браузере и в Figma. Бесплатные модели рисуют с огрехами и требуют
+  2–3 правок репликами; платные профессиональные справляются с первого раза.</p>
+</div>
+
+<h2 id="mermaid"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4" cy="6" r="2.5"/><circle cx="4" cy="18" r="2.5"/><circle cx="20" cy="12" r="2.5"/><path d="M6.5,6 L12,6 C15,6 17,9 17.5,12"/><path d="M6.5,18 L12,18 C15,18 17,15 17.5,12"/></svg> Mermaid: <span>диаграммы из текста</span></h2>
+<p class="lead">Четыре примера со слайдов занятия: промпт словами → код → готовая
+диаграмма. Тип диаграммы называете сами: flowchart, mindmap, timeline, gantt.</p>
+<div class="card" id="mm-flowchart" style="--c:#6b93f2"><header><span class="tag">Mermaid · flowchart</span><h3>Процесс согласования рукописи</h3></header><div class="body"><p class="why">Схема живёт в регламенте текстом: «добавь этап корректуры» — и она перестроена.</p><div class="prompt"><div class="phead"><span>Промпт — опишите словами</span><button class="copy" data-src="ask_flowchart"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="ask_flowchart">Рукопись проходит рецензию, потом редсовет решает: договор и редактура — или отказ. Построй flowchart в Mermaid, не больше 8 узлов, подписи до 3 слов. Выведи только код Mermaid.</pre></div><div class="prompt"><div class="phead"><span>Код Mermaid — вставьте в mermaid.live</span><button class="copy" data-src="code_flowchart"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="code_flowchart">flowchart LR
+  Рукопись --&gt; Рецензия
+  Рецензия --&gt; Берём{Берём?}
+  Берём -- да --&gt; Договор
+  Договор --&gt; Редактура
+  Берём -- нет --&gt; Отказ</pre></div><div class="render"><div class="rlab">Результат — рендер прямо на странице</div><pre class="mermaid">flowchart LR
+  Рукопись --&gt; Рецензия
+  Рецензия --&gt; Берём{Берём?}
+  Берём -- да --&gt; Договор
+  Договор --&gt; Редактура
+  Берём -- нет --&gt; Отказ</pre></div></div></div>
+<div class="card" id="mm-mindmap" style="--c:#2fbf76"><header><span class="tag">Mermaid · mindmap</span><h3>Mind-map продвижения новинки</h3></header><div class="body"><p class="why">Каждая ветка — строка с отступом: попросите ИИ достроить ветки, которые вы забыли.</p><div class="prompt"><div class="phead"><span>Промпт — опишите словами</span><button class="copy" data-src="ask_mindmap"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="ask_mindmap">Составь mindmap плана продвижения новинки: каналы (соцсети, рассылка), форматы (электронка, аудио), партнёры (маркетплейсы), бюджет (реклама, PR). Формат — Mermaid mindmap, выведи только код.</pre></div><div class="prompt"><div class="phead"><span>Код Mermaid — вставьте в mermaid.live</span><button class="copy" data-src="code_mindmap"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="code_mindmap">mindmap
+  root((Новинка))
+    Каналы
+      Соцсети
+      Рассылка
+    Форматы
+      Электронка
+      Аудио
+    Партнёры
+      Маркетплейсы
+    Бюджет
+      Реклама
+      PR</pre></div><div class="render"><div class="rlab">Результат — рендер прямо на странице</div><pre class="mermaid">mindmap
+  root((Новинка))
+    Каналы
+      Соцсети
+      Рассылка
+    Форматы
+      Электронка
+      Аудио
+    Партнёры
+      Маркетплейсы
+    Бюджет
+      Реклама
+      PR</pre></div></div></div>
+<div class="card" id="mm-timeline" style="--c:#e8a13c"><header><span class="tag">Mermaid · timeline</span><h3>Timeline запуска книги</h3></header><div class="body"><p class="why">Календарь запуска из списка дел — одинаково читается автором, редактором и маркетингом.</p><div class="prompt"><div class="phead"><span>Промпт — опишите словами</span><button class="copy" data-src="ask_timeline"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="ask_timeline">Собери timeline запуска книги с июня по октябрь: сдача рукописи, редактура и обложка, вёрстка и печать, предзаказ, старт продаж. Формат — Mermaid timeline, выведи только код.</pre></div><div class="prompt"><div class="phead"><span>Код Mermaid — вставьте в mermaid.live</span><button class="copy" data-src="code_timeline"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="code_timeline">timeline
+  title Запуск книги
+  Июнь : Сдача рукописи
+  Июль : Редактура : Обложка
+  Август : Вёрстка : Печать
+  Сентябрь : Предзаказ
+  Октябрь : Старт продаж</pre></div><div class="render"><div class="rlab">Результат — рендер прямо на странице</div><pre class="mermaid">timeline
+  title Запуск книги
+  Июнь : Сдача рукописи
+  Июль : Редактура : Обложка
+  Август : Вёрстка : Печать
+  Сентябрь : Предзаказ
+  Октябрь : Старт продаж</pre></div></div></div>
+<div class="card" id="mm-gantt" style="--c:#e0568a"><header><span class="tag">Mermaid · gantt</span><h3>Диаграмма Ганта: редакционный план</h3></header><div class="body"><p class="why">Сдвинулся дедлайн — поправили строку, а не перерисовали план.</p><div class="prompt"><div class="phead"><span>Промпт — опишите словами</span><button class="copy" data-src="ask_gantt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="ask_gantt">Построй диаграмму Ганта редакционного плана на сентябрь: сбор тем (5 дней), статьи (10 дней), редактура (7 дней), вёрстка (5 дней), публикация (3 дня) — разделы «Тексты» и «Выпуск». Формат — Mermaid gantt, выведи только код.</pre></div><div class="prompt"><div class="phead"><span>Код Mermaid — вставьте в mermaid.live</span><button class="copy" data-src="code_gantt"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="code_gantt">gantt
+  title Редакционный план
+  dateFormat DD.MM
+  section Тексты
+    Сбор тем :01.09, 5d
+    Статьи :06.09, 10d
+  section Выпуск
+    Редактура :12.09, 7d
+    Вёрстка :19.09, 5d
+    Публикация :24.09, 3d</pre></div><div class="render"><div class="rlab">Результат — рендер прямо на странице</div><pre class="mermaid">gantt
+  title Редакционный план
+  dateFormat DD.MM
+  section Тексты
+    Сбор тем :01.09, 5d
+    Статьи :06.09, 10d
+  section Выпуск
+    Редактура :12.09, 7d
+    Вёрстка :19.09, 5d
+    Публикация :24.09, 3d</pre></div></div></div>
+
+<h2 id="prompts"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3,4 L15,4 C16,4 17,5 17,6 L17,11 C17,12 16,13 15,13 L9,13 L6,16 L6,13 L5,13 C4,13 3,12 3,11 Z"/><path d="M17,8 L19,8 C20,8 21,9 21,10 L21,15 C21,16 20,17 19,17 L18,17 L18,20 L15,17 L11,17"/></svg> Промпт-шаблоны: <span>диаграммы, стиль, дашборды</span></h2>
+<p class="lead">Рабочие заготовки из занятия — подставьте свой процесс и данные.</p>
+<div class="card" id="tpl_diagram" style="--c:#6b93f2"><header><span class="tag">шаблон</span><h3>Универсальный промпт для диаграммы</h3></header><div class="body"><p class="why">Описание словами + тип из каталога + ограничение детализации + итерации.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_tpl_diagram"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_tpl_diagram">Построй &lt;тип: flowchart / mindmap / timeline / gantt&gt; в Mermaid.
+&lt;Опишите словами: что за процесс, какие шаги, что с чем связано.&gt;
+Не больше 8 узлов, подписи до 3 слов. Выведи только код Mermaid.
+
+Дальше правьте диалогом: «добавь этап корректуры», «объедини первые два шага».</pre></div></div></div>
+<div class="card" id="tpl_style" style="--c:#e8a13c"><header><span class="tag">стилизация</span><h3>Фирменные цвета — промптом</h3></header><div class="body"><p class="why">Одна палитра на все графики — материалы выглядят целостно, как от дизайнера.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_tpl_style"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_tpl_style">Примени к диаграмме фирменные цвета: синий #004A98, алый #D91016.
+Настрой линии, подписи и фон; проверь читаемость текста и визуальный баланс.</pre></div></div></div>
+<div class="card" id="tpl_perplexity" style="--c:#2fbf76"><header><span class="tag">perplexity.ai</span><h3>Гант без установки: Perplexity</h3></header><div class="body"><p class="why">Приложили таблицу задач — получили интерактивный план прямо в браузере, без кода.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_tpl_perplexity"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_tpl_perplexity">Построй диаграмму Ганта по приложенному файлу с учётом загрузки ресурсов.</pre></div></div></div>
+<div class="card" id="tpl_dashboard" style="--c:#e0568a"><header><span class="tag">дашборд</span><h3>Дашборд из еженедельной отчётности</h3></header><div class="body"><p class="why">DeepSeek и аналоги не только анализируют пакет документов, но и строят по ним диаграммы.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_tpl_dashboard"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_tpl_dashboard">Проанализируй приложенный пакет еженедельных отчётов.
+Построй график этапов «план/факт» и накопленное отставание в днях.
+Если нужен интерактивный график — выведи спецификацию Vega-Lite.</pre></div></div></div>
+
+<h2 id="svg"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Генерация SVG: <span>изображение — это тоже код</span></h2>
+<p class="lead">SVG — векторный формат: картинка описана текстом, масштабируется без
+потери качества, открывается в Figma и Illustrator, годится для печати. Девять готовых
+промптов для повседневных задач издателя и маркетолога — результаты приведены как есть.</p>
+<div class="card" id="svg-badge" style="--c:#ef5350"><header><span class="tag">SVG · маркетинг</span><h3>Стикер-бейдж на обложку</h3></header><div class="body"><p class="why">Промо-метки для карточек на маркетплейсах и акций — «Бестселлер», «Новинка», «−40%» — без дизайнера.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_badge"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_badge">Нарисуй SVG: круглый промо-стикер для обложки книги, диаметр 300px. Красный круг с белой окантовкой, в центре крупная белая надпись «БЕСТСЕЛЛЕР», под ней белая звезда. Стиль — ценник-стикер маркетплейса. В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:240px;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <radialGradient id="redGrad" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#ff4d4d"/>
+      <stop offset="55%" stop-color="#e8291f"/>
+      <stop offset="100%" stop-color="#b3140d"/>
+    </radialGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <circle cx="150" cy="150" r="144" fill="#ffffff" filter="url(#softShadow)"/>
+  <circle cx="150" cy="150" r="144" fill="none" stroke="#ffffff" stroke-width="10"/>
+  <circle cx="150" cy="150" r="137" fill="url(#redGrad)"/>
+  <circle cx="150" cy="150" r="137" fill="none" stroke="#8f0f09" stroke-width="2" opacity="0.5"/>
+
+  <ellipse cx="115" cy="85" rx="55" ry="22" fill="#ffffff" opacity="0.12" transform="rotate(-18 115 85)"/>
+
+  <text x="150" y="118"
+        font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif"
+        font-weight="900"
+        font-size="30"
+        fill="#ffffff"
+        text-anchor="middle"
+        letter-spacing="0.5"
+        textLength="230"
+        lengthAdjust="spacingAndGlyphs">БЕСТ</text>
+  <text x="150" y="152"
+        font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif"
+        font-weight="900"
+        font-size="30"
+        fill="#ffffff"
+        text-anchor="middle"
+        letter-spacing="0.5"
+        textLength="230"
+        lengthAdjust="spacingAndGlyphs">СЕЛЛЕР</text>
+
+  <polygon fill="#ffffff"
+    points="150,183 155.88,200.91 174.73,200.97 159.51,212.09 165.28,230.03 150,219 134.72,230.03 140.49,212.09 125.27,200.97 144.12,200.91"/>
+</svg></div></div></div></div>
+<div class="card" id="svg-cover_spec" style="--c:#6b93f2"><header><span class="tag">SVG · производство</span><h3>Чертёж обложки для типографии</h3></header><div class="body"><p class="why">ТЗ в типографию или дизайнеру из текстового описания; вектор открывается в Figma.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_cover_spec"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_cover_spec">Нарисуй SVG-чертёж разворота обложки книги для типографии: задняя сторонка, корешок, передняя сторонка — с подписями; вокруг пунктирная рамка вылетов 5 мм; сверху размерные стрелки 140 мм / 18 мм / 140 мм. Светлый фон, тонкие линии, стиль технического чертежа. В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:560px;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" font-family="Arial, Helvetica, sans-serif">
+  <rect x="0" y="0" width="640" height="460" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333333"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="320" y="18" text-anchor="middle" font-size="13" fill="#333333">Развёрнутая обложка — чертёж для типографии</text>
+
+  <!-- Размерные линии сверху -->
+  <g stroke="#333333" stroke-width="1">
+    <line x1="60"  y1="90" x2="60"  y2="48" stroke-dasharray="3,3"/>
+    <line x1="300" y1="90" x2="300" y2="48" stroke-dasharray="3,3"/>
+    <line x1="340" y1="90" x2="340" y2="48" stroke-dasharray="3,3"/>
+    <line x1="580" y1="90" x2="580" y2="48" stroke-dasharray="3,3"/>
+
+    <line x1="60"  y1="52" x2="300" y2="52" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <line x1="300" y1="52" x2="340" y2="52" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <line x1="340" y1="52" x2="580" y2="52" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  </g>
+  <g font-size="13" fill="#333333" text-anchor="middle">
+    <text x="180" y="40">140 мм</text>
+    <text x="320" y="40">18 мм</text>
+    <text x="460" y="40">140 мм</text>
+  </g>
+
+  <!-- Рамка вылетов -->
+  <rect x="40" y="70" width="560" height="340" fill="none" stroke="#888888" stroke-width="1" stroke-dasharray="7,5"/>
+
+  <!-- Три зоны обложки -->
+  <g stroke="#333333" stroke-width="1.2" fill="none">
+    <rect x="60"  y="90" width="240" height="300" fill="#ffffff"/>
+    <rect x="300" y="90" width="40"  height="300" fill="#f0f0f0"/>
+    <rect x="340" y="90" width="240" height="300" fill="#ffffff"/>
+  </g>
+
+  <!-- Подписи зон -->
+  <text x="180" y="244" text-anchor="middle" font-size="14" fill="#222222">Задняя сторонка</text>
+  <text x="320" y="244" text-anchor="middle" font-size="12" fill="#222222" transform="rotate(-90 320 244)">Корешок</text>
+  <text x="460" y="244" text-anchor="middle" font-size="14" fill="#222222">Передняя сторонка</text>
+
+  <!-- Подпись вылетов у нижнего левого угла -->
+  <line x1="40" y1="410" x2="58" y2="428" stroke="#888888" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="44" y="440" text-anchor="start" font-size="13" fill="#333333">вылеты 5 мм</text>
+</svg></div></div></div></div>
+<div class="card" id="svg-funnel" style="--c:#2fbf76"><header><span class="tag">SVG · маркетинг</span><h3>Воронка продаж книги</h3></header><div class="body"><p class="why">Тип диаграммы, которого в Mermaid нет, — а в отчёте маркетинга он нужен постоянно.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_funnel"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_funnel">Нарисуй SVG: воронку продаж книги из 4 сужающихся ступеней: «Показы карточки — 120 000», «Открыли карточку — 18 000», «Добавили в корзину — 3 400», «Купили — 1 150». Цвета от синего к зелёному, подписи внутри ступеней, справа конверсии 15%, 19%, 34%. В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:460px;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 460" font-family="'Segoe UI', Arial, sans-serif">
+  <rect x="0" y="0" width="620" height="460" fill="#ffffff"/>
+
+  <text x="300" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#222222">Воронка продаж книги</text>
+
+  <!-- Stage 1 -->
+  <polygon points="60,50 540,50 490,140 110,140" fill="#2563eb"/>
+  <text x="300" y="100" text-anchor="middle" font-size="19" font-weight="600" fill="#ffffff">Показы карточки — 120 000</text>
+
+  <!-- Conversion 1 -->
+  <text x="558" y="145" text-anchor="middle" font-size="15" fill="#888888">↓ 15%</text>
+
+  <!-- Stage 2 -->
+  <polygon points="110,140 490,140 440,230 160,230" fill="#189aa5"/>
+  <text x="300" y="190" text-anchor="middle" font-size="17" font-weight="600" fill="#ffffff">Открыли карточку — 18 000</text>
+
+  <!-- Conversion 2 -->
+  <text x="508" y="235" text-anchor="middle" font-size="15" fill="#888888">↓ 19%</text>
+
+  <!-- Stage 3 -->
+  <polygon points="160,230 440,230 390,320 210,320" fill="#149e6e"/>
+  <text x="300" y="266" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">Добавили в корзину</text>
+  <text x="300" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">3 400</text>
+
+  <!-- Conversion 3 -->
+  <text x="458" y="325" text-anchor="middle" font-size="15" fill="#888888">↓ 34%</text>
+
+  <!-- Stage 4 -->
+  <polygon points="210,320 390,320 350,410 250,410" fill="#18a648"/>
+  <text x="300" y="356" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">Купили</text>
+  <text x="300" y="378" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">1 150</text>
+</svg></div></div></div></div>
+<div class="card" id="svg-barchart" style="--c:#6b93f2"><header><span class="tag">SVG · отчётность</span><h3>График продаж в фирменных цветах</h3></header><div class="body"><p class="why">Готовая картинка для отчёта, поста или презентации — палитра бренда задаётся HEX-кодами в промпте.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_barchart"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_barchart">Нарисуй SVG: столбчатую диаграмму «Продажи по месяцам» (март–август: 8 200, 9 100, 12 400, 11 000, 14 800, 16 300). Фирменные цвета: синий #004A98, лучший месяц — алым #D91016. Значения над столбцами, месяцы под ними, лёгкая сетка. В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:460px;height:auto;display:block" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="600" height="400" fill="#F7F8FA"/>
+
+  <!-- Title -->
+  <text x="300" y="34" text-anchor="middle" font-size="22" font-weight="700" fill="#002B54">Продажи по месяцам</text>
+
+  <!-- Horizontal grid lines -->
+  <g stroke="#DDE3EA" stroke-width="1">
+    <line x1="40" y1="70" x2="560" y2="70"/>
+    <line x1="40" y1="113.3" x2="560" y2="113.3"/>
+    <line x1="40" y1="156.7" x2="560" y2="156.7"/>
+    <line x1="40" y1="200" x2="560" y2="200"/>
+    <line x1="40" y1="243.3" x2="560" y2="243.3"/>
+    <line x1="40" y1="286.7" x2="560" y2="286.7"/>
+  </g>
+
+  <!-- Baseline / axis -->
+  <line x1="40" y1="330" x2="560" y2="330" stroke="#8A93A0" stroke-width="1.5"/>
+
+  <!-- Bars -->
+  <rect x="45"  y="212" width="60" height="118" fill="#004A98" rx="2"/>
+  <rect x="135" y="199" width="60" height="131" fill="#004A98" rx="2"/>
+  <rect x="225" y="151" width="60" height="179" fill="#004A98" rx="2"/>
+  <rect x="315" y="171" width="60" height="159" fill="#004A98" rx="2"/>
+  <rect x="405" y="116" width="60" height="214" fill="#004A98" rx="2"/>
+  <rect x="495" y="95"  width="60" height="235" fill="#D91016" rx="2"/>
+
+  <!-- Value labels -->
+  <g font-size="15" font-weight="700" fill="#1A2733" text-anchor="middle">
+    <text x="75"  y="202">8 200</text>
+    <text x="165" y="189">9 100</text>
+    <text x="255" y="141">12 400</text>
+    <text x="345" y="161">11 000</text>
+    <text x="435" y="106">14 800</text>
+    <text x="525" y="85" fill="#D91016">16 300</text>
+  </g>
+
+  <!-- Month labels -->
+  <g font-size="14" fill="#3D4A57" text-anchor="middle">
+    <text x="75"  y="352">Март</text>
+    <text x="165" y="352">Апрель</text>
+    <text x="255" y="352">Май</text>
+    <text x="345" y="352">Июнь</text>
+    <text x="435" y="352">Июль</text>
+    <text x="525" y="352">Август</text>
+  </g>
+</svg></div></div></div></div>
+<div class="card" id="svg-calendar" style="--c:#e8a13c"><header><span class="tag">SVG · планирование</span><h3>Контент-план на месяц</h3></header><div class="body"><p class="why">План публикаций одним файлом — на стену, в чат команды или в презентацию.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_calendar"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_calendar">Нарисуй SVG: календарь-план публикаций на сентябрь 2026 (сетка 7×5, месяц начинается со вторника). Отметь даты: 3 — «анонс», 10 — «релиз книги», 17 — «отзывы блогеров», 24 — «подборка», 29 — «скидка −20%»; релизы и акции — алым, остальное синим. В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:560px;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 812 568" font-family="Arial, Helvetica, sans-serif">
+  <rect x="0" y="0" width="812" height="568" fill="#f6f4ee"/>
+
+  <text x="406" y="34" text-anchor="middle" font-size="25" font-weight="700" fill="#2c2a24">Сентябрь — контент-план</text>
+
+  <!-- weekday header -->
+  <text x="70"  y="70" text-anchor="middle" font-size="15" font-weight="600" fill="#6b6558">Пн</text>
+  <text x="182" y="70" text-anchor="middle" font-size="15" font-weight="600" fill="#6b6558">Вт</text>
+  <text x="294" y="70" text-anchor="middle" font-size="15" font-weight="600" fill="#6b6558">Ср</text>
+  <text x="406" y="70" text-anchor="middle" font-size="15" font-weight="600" fill="#6b6558">Чт</text>
+  <text x="518" y="70" text-anchor="middle" font-size="15" font-weight="600" fill="#6b6558">Пт</text>
+  <text x="630" y="70" text-anchor="middle" font-size="15" font-weight="600" fill="#8a5a4a">Сб</text>
+  <text x="742" y="70" text-anchor="middle" font-size="15" font-weight="600" fill="#8a5a4a">Вс</text>
+  <line x1="14" y1="84" x2="798" y2="84" stroke="#cfc9ba" stroke-width="1"/>
+
+  <!-- ================= ROW 0 (84-178): 1..6, col0 empty ================= -->
+  <rect x="14"  y="84" width="112" height="94" fill="#eeece3" stroke="#ded9c8"/>
+
+  <rect x="126" y="84" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="134" y="106" font-size="16" fill="#333">1</text>
+
+  <rect x="238" y="84" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="246" y="106" font-size="16" fill="#333">2</text>
+
+  <rect x="350" y="84" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="358" y="106" font-size="16" fill="#333">3</text>
+  <circle cx="406" cy="132" r="4" fill="#2f6fed"/>
+  <text x="406" y="148" text-anchor="middle" font-size="9.5" fill="#2f6fed">анонс</text>
+
+  <rect x="462" y="84" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="470" y="106" font-size="16" fill="#333">4</text>
+
+  <rect x="574" y="84" width="112" height="94" fill="#f3efe4" stroke="#e2ddcf"/>
+  <text x="582" y="106" font-size="16" fill="#333">5</text>
+
+  <rect x="686" y="84" width="112" height="94" fill="#f3efe4" stroke="#e2ddcf"/>
+  <text x="694" y="106" font-size="16" fill="#333">6</text>
+
+  <!-- ================= ROW 1 (178-272): 7..13 ================= -->
+  <rect x="14"  y="178" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="22" y="200" font-size="16" fill="#333">7</text>
+
+  <rect x="126" y="178" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="134" y="200" font-size="16" fill="#333">8</text>
+
+  <rect x="238" y="178" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="246" y="200" font-size="16" fill="#333">9</text>
+
+  <rect x="350" y="178" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="358" y="200" font-size="16" fill="#333">10</text>
+  <circle cx="406" cy="226" r="4" fill="#e0483e"/>
+  <text x="406" y="242" text-anchor="middle" font-size="9.5" fill="#e0483e">релиз книги</text>
+
+  <rect x="462" y="178" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="470" y="200" font-size="16" fill="#333">11</text>
+
+  <rect x="574" y="178" width="112" height="94" fill="#f3efe4" stroke="#e2ddcf"/>
+  <text x="582" y="200" font-size="16" fill="#333">12</text>
+
+  <rect x="686" y="178" width="112" height="94" fill="#f3efe4" stroke="#e2ddcf"/>
+  <text x="694" y="200" font-size="16" fill="#333">13</text>
+
+  <!-- ================= ROW 2 (272-366): 14..20 ================= -->
+  <rect x="14"  y="272" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="22" y="294" font-size="16" fill="#333">14</text>
+
+  <rect x="126" y="272" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="134" y="294" font-size="16" fill="#333">15</text>
+
+  <rect x="238" y="272" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="246" y="294" font-size="16" fill="#333">16</text>
+
+  <rect x="350" y="272" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="358" y="294" font-size="16" fill="#333">17</text>
+  <circle cx="406" cy="320" r="4" fill="#2f6fed"/>
+  <text x="406" y="336" text-anchor="middle" font-size="9.5" fill="#2f6fed">отзывы блогеров</text>
+
+  <rect x="462" y="272" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="470" y="294" font-size="16" fill="#333">18</text>
+
+  <rect x="574" y="272" width="112" height="94" fill="#f3efe4" stroke="#e2ddcf"/>
+  <text x="582" y="294" font-size="16" fill="#333">19</text>
+
+  <rect x="686" y="272" width="112" height="94" fill="#f3efe4" stroke="#e2ddcf"/>
+  <text x="694" y="294" font-size="16" fill="#333">20</text>
+
+  <!-- ================= ROW 3 (366-460): 21..27 ================= -->
+  <rect x="14"  y="366" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="22" y="388" font-size="16" fill="#333">21</text>
+
+  <rect x="126" y="366" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="134" y="388" font-size="16" fill="#333">22</text>
+
+  <rect x="238" y="366" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="246" y="388" font-size="16" fill="#333">23</text>
+
+  <rect x="350" y="366" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="358" y="388" font-size="16" fill="#333">24</text>
+  <circle cx="406" cy="414" r="4" fill="#2f6fed"/>
+  <text x="406" y="430" text-anchor="middle" font-size="9.5" fill="#2f6fed">подборка</text>
+
+  <rect x="462" y="366" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="470" y="388" font-size="16" fill="#333">25</text>
+
+  <rect x="574" y="366" width="112" height="94" fill="#f3efe4" stroke="#e2ddcf"/>
+  <text x="582" y="388" font-size="16" fill="#333">26</text>
+
+  <rect x="686" y="366" width="112" height="94" fill="#f3efe4" stroke="#e2ddcf"/>
+  <text x="694" y="388" font-size="16" fill="#333">27</text>
+
+  <!-- ================= ROW 4 (460-554): 28,29,30, rest empty ================= -->
+  <rect x="14"  y="460" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="22" y="482" font-size="16" fill="#333">28</text>
+
+  <rect x="126" y="460" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="134" y="482" font-size="16" fill="#333">29</text>
+  <circle cx="182" cy="508" r="4" fill="#e0483e"/>
+  <text x="182" y="524" text-anchor="middle" font-size="9.5" fill="#e0483e">скидка −20%</text>
+
+  <rect x="238" y="460" width="112" height="94" fill="#ffffff" stroke="#e2ddcf"/>
+  <text x="246" y="482" font-size="16" fill="#333">30</text>
+
+  <rect x="350" y="460" width="112" height="94" fill="#eeece3" stroke="#ded9c8"/>
+  <rect x="462" y="460" width="112" height="94" fill="#eeece3" stroke="#ded9c8"/>
+  <rect x="574" y="460" width="112" height="94" fill="#eeece3" stroke="#ded9c8"/>
+  <rect x="686" y="460" width="112" height="94" fill="#eeece3" stroke="#ded9c8"/>
+</svg></div></div></div></div>
+<div class="card" id="svg-podium" style="--c:#e8a13c"><header><span class="tag">SVG · соцсети</span><h3>Топ-3 бестселлера месяца</h3></header><div class="body"><p class="why">Итоги месяца для соцсетей и рассылки — обложки-плейсхолдеры меняются на настоящие.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_podium"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_podium">Нарисуй SVG: пьедестал «Топ-3 бестселлера месяца»: три ступени подиума с золотым, серебряным и бронзовым акцентами, на каждой — обложка-плейсхолдер с номером места и названием книги. В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:460px;height:auto;display:block" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, 'Times New Roman', serif">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe27a"/>
+      <stop offset="55%" stop-color="#f2b530"/>
+      <stop offset="100%" stop-color="#c8871a"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f2f4f6"/>
+      <stop offset="55%" stop-color="#c3cad1"/>
+      <stop offset="100%" stop-color="#98a2ab"/>
+    </linearGradient>
+    <linearGradient id="bronze" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e3a774"/>
+      <stop offset="55%" stop-color="#c1783f"/>
+      <stop offset="100%" stop-color="#8f552a"/>
+    </linearGradient>
+    <linearGradient id="coverGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff3cf"/>
+      <stop offset="100%" stop-color="#f4c94b"/>
+    </linearGradient>
+    <linearGradient id="coverSilver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#d6dde3"/>
+    </linearGradient>
+    <linearGradient id="coverBronze" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3d3ae"/>
+      <stop offset="100%" stop-color="#d79a5f"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00000022"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="600" fill="#faf7f0"/>
+  <rect x="0" y="0" width="800" height="600" fill="url(#bgGlow)" opacity="0"/>
+
+  <!-- Title -->
+  <text x="400" y="60" text-anchor="middle" font-size="34" font-weight="bold" fill="#3a2f22">Топ-3 бестселлера месяца</text>
+  <line x1="230" y1="80" x2="570" y2="80" stroke="#d8b45a" stroke-width="3"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="400" cy="545" rx="330" ry="18" fill="#00000012"/>
+
+  <!-- ===================== 2nd place (left) ===================== -->
+  <g filter="url(#soft)">
+    <rect x="90" y="380" width="170" height="150" fill="url(#silver)" stroke="#8f99a3" stroke-width="2"/>
+  </g>
+  <text x="175" y="470" text-anchor="middle" font-size="64" font-weight="bold" fill="#5c6670">2</text>
+
+  <!-- Book cover on 2nd place -->
+  <g filter="url(#soft)">
+    <rect x="120" y="255" width="110" height="150" rx="6" fill="url(#coverSilver)" stroke="#9aa4ad" stroke-width="2"/>
+  </g>
+  <rect x="120" y="255" width="14" height="150" rx="4" fill="#b7c0c8"/>
+  <text x="175" y="300" text-anchor="middle" font-size="16" font-weight="bold" fill="#4a5257">МЕСТО</text>
+  <text x="175" y="335" text-anchor="middle" font-size="40" font-weight="bold" fill="#4a5257">2</text>
+  <text x="175" y="375" text-anchor="middle" font-size="15" fill="#3c4348">Тихие</text>
+  <text x="175" y="393" text-anchor="middle" font-size="15" fill="#3c4348">воды</text>
+
+  <!-- ===================== 1st place (center) ===================== -->
+  <g filter="url(#soft)">
+    <rect x="315" y="320" width="170" height="210" fill="url(#gold)" stroke="#b5820f" stroke-width="2"/>
+  </g>
+  <text x="400" y="450" text-anchor="middle" font-size="76" font-weight="bold" fill="#8a5f0c">1</text>
+
+  <!-- Star above 1st -->
+  <polygon points="400,175 410,203 440,203 415,221 425,250 400,232 375,250 385,221 360,203 390,203"
+           fill="#f4c94b" stroke="#b5820f" stroke-width="2"/>
+
+  <!-- Book cover on 1st place -->
+  <g filter="url(#soft)">
+    <rect x="340" y="200" width="120" height="160" rx="6" fill="url(#coverGold)" stroke="#c9a13a" stroke-width="2"/>
+  </g>
+  <rect x="340" y="200" width="15" height="160" rx="4" fill="#e0b23f"/>
+  <text x="400" y="248" text-anchor="middle" font-size="16" font-weight="bold" fill="#6d4a0a">МЕСТО</text>
+  <text x="400" y="288" text-anchor="middle" font-size="44" font-weight="bold" fill="#6d4a0a">1</text>
+  <text x="400" y="328" text-anchor="middle" font-size="16" font-weight="bold" fill="#4a3406">Код</text>
+  <text x="400" y="347" text-anchor="middle" font-size="16" font-weight="bold" fill="#4a3406">города</text>
+
+  <!-- ===================== 3rd place (right) ===================== -->
+  <g filter="url(#soft)">
+    <rect x="540" y="410" width="170" height="120" fill="url(#bronze)" stroke="#7a4c22" stroke-width="2"/>
+  </g>
+  <text x="625" y="490" text-anchor="middle" font-size="56" font-weight="bold" fill="#6b3f1c">3</text>
+
+  <!-- Book cover on 3rd place -->
+  <g filter="url(#soft)">
+    <rect x="570" y="295" width="110" height="145" rx="6" fill="url(#coverBronze)" stroke="#a8703a" stroke-width="2"/>
+  </g>
+  <rect x="570" y="295" width="14" height="145" rx="4" fill="#c48a4e"/>
+  <text x="625" y="338" text-anchor="middle" font-size="16" font-weight="bold" fill="#5b3312">МЕСТО</text>
+  <text x="625" y="373" text-anchor="middle" font-size="38" font-weight="bold" fill="#5b3312">3</text>
+  <text x="625" y="412" text-anchor="middle" font-size="15" fill="#4a2a0f">Сад</text>
+  <text x="625" y="430" text-anchor="middle" font-size="15" fill="#4a2a0f">памяти</text>
+
+  <!-- Base platform line -->
+  <rect x="70" y="528" width="660" height="8" fill="#e2d6b8"/>
+</svg></div></div></div></div>
+<div class="card" id="svg-rating" style="--c:#2fbf76"><header><span class="tag">SVG · карточка товара</span><h3>Карточка рейтинга книги</h3></header><div class="body"><p class="why">Блок социального доказательства для лендинга, баннера или презентации.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_rating"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_rating">Нарисуй SVG: карточку рейтинга книги примерно 500×160: слева крупно «4,7» и пять звёзд (последняя заполнена на 70%), справа шкалы распределения оценок 5★ — 78%, 4★ — 15%, 3★ и ниже — 7%, внизу «1 284 отзыва читателей». В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:460px;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 160" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <path id="starShape" d="M0,-9 L2.116,-2.912 L8.560,-2.781 L3.424,1.112 L5.290,7.281 L0,3.6 L-5.290,7.281 L-3.424,1.112 L-8.560,-2.781 L-2.116,-2.912 Z"/>
+    <clipPath id="clipStar5" clipPathUnits="userSpaceOnUse">
+      <rect x="-9" y="-9" width="12.6" height="18"/>
+    </clipPath>
+  </defs>
+
+  <rect x="2" y="2" width="496" height="156" rx="18" fill="#ffffff" stroke="#e3e3e3" stroke-width="2"/>
+
+  <line x1="180" y1="24" x2="180" y2="136" stroke="#ececeb" stroke-width="1"/>
+
+  <text x="28" y="85" font-size="50" font-weight="700" fill="#1f2937">4,7</text>
+
+  <g>
+    <use href="#starShape" transform="translate(42,122)" fill="#f5b400"/>
+    <use href="#starShape" transform="translate(64,122)" fill="#f5b400"/>
+    <use href="#starShape" transform="translate(86,122)" fill="#f5b400"/>
+    <use href="#starShape" transform="translate(108,122)" fill="#f5b400"/>
+    <g transform="translate(130,122)">
+      <use href="#starShape" fill="#e5e7eb"/>
+      <g clip-path="url(#clipStar5)">
+        <use href="#starShape" fill="#f5b400"/>
+      </g>
+    </g>
+  </g>
+
+  <g font-size="13" fill="#374151">
+    <text x="195" y="46">5★</text>
+    <text x="195" y="82">4★</text>
+    <text x="195" y="118">3★ и ниже</text>
+  </g>
+
+  <g>
+    <rect x="275" y="35" width="150" height="10" rx="5" fill="#e5e7eb"/>
+    <rect x="275" y="35" width="117" height="10" rx="5" fill="#f5b400"/>
+
+    <rect x="275" y="71" width="150" height="10" rx="5" fill="#e5e7eb"/>
+    <rect x="275" y="71" width="22.5" height="10" rx="5" fill="#f5b400"/>
+
+    <rect x="275" y="107" width="150" height="10" rx="5" fill="#e5e7eb"/>
+    <rect x="275" y="107" width="10.5" height="10" rx="5" fill="#f5b400"/>
+  </g>
+
+  <g font-size="12" fill="#6b7280">
+    <text x="435" y="45">78%</text>
+    <text x="435" y="81">15%</text>
+    <text x="435" y="117">7%</text>
+  </g>
+
+  <text x="250" y="150" font-size="11" fill="#9ca3af" text-anchor="middle">1 284 отзыва читателей</text>
+</svg></div></div></div></div>
+<div class="card" id="svg-formats" style="--c:#e0568a"><header><span class="tag">SVG · продукт</span><h3>Форматы изданий в масштабе</h3></header><div class="body"><p class="why">Наглядное сравнение линейки изданий — для карточки товара и презентации серии.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_formats"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_formats">Нарисуй SVG: сравнение трёх форматов изданий в реальном масштабе на одной базовой линии: покет 76×100, стандарт 84×108, подарочный 70×90/8 с лентой-ляссе; под каждым — название формата, размер в мм и цена (349 ₽ / 549 ₽ / 1 190 ₽). В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:560px;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" font-family="'Segoe UI', Arial, sans-serif">
+  <rect x="0" y="0" width="900" height="700" fill="#faf8f4"/>
+
+  <text x="450" y="34" text-anchor="middle" font-size="22" font-weight="700" fill="#333333">Сравнение форматов изданий в реальном масштабе</text>
+
+  <line x1="30" y1="600" x2="870" y2="600" stroke="#cbd5db" stroke-width="2"/>
+
+  <!-- grounding shadows -->
+  <ellipse cx="128.5" cy="602" rx="65" ry="6" fill="#000000" opacity="0.08"/>
+  <ellipse cx="322.5" cy="602" rx="72" ry="6.5" fill="#000000" opacity="0.08"/>
+  <ellipse cx="641.5" cy="602" rx="185" ry="8" fill="#000000" opacity="0.08"/>
+
+  <!-- ===== Покет 76x100 ===== -->
+  <g>
+    <rect x="64" y="424" width="137" height="180" fill="#f7ecd9" stroke="#e0cba0" stroke-width="1"/>
+    <rect x="60" y="420" width="137" height="180" rx="3" fill="#e08a5b" stroke="#00000022" stroke-width="1"/>
+    <rect x="60" y="420" width="8" height="180" fill="#c06f45"/>
+
+    <text x="128.5" y="628" text-anchor="middle" font-size="16.5" font-weight="700" fill="#2a2a2a">Покет 76×100</text>
+    <text x="128.5" y="649" text-anchor="middle" font-size="13.5" fill="#5c5c5c">76 × 100 мм</text>
+    <text x="128.5" y="673" text-anchor="middle" font-size="18" font-weight="700" fill="#c06f45">349 ₽</text>
+  </g>
+
+  <!-- ===== Стандарт 84x108 ===== -->
+  <g>
+    <rect x="252" y="411" width="151" height="194" fill="#eef1f5" stroke="#d7dee6" stroke-width="1"/>
+    <rect x="247" y="406" width="151" height="194" rx="3" fill="#4f7cac" stroke="#00000022" stroke-width="1"/>
+    <rect x="247" y="406" width="10" height="194" fill="#3c6088"/>
+
+    <text x="322.5" y="628" text-anchor="middle" font-size="16.5" font-weight="700" fill="#2a2a2a">Стандарт 84×108</text>
+    <text x="322.5" y="649" text-anchor="middle" font-size="13.5" fill="#5c5c5c">84 × 108 мм</text>
+    <text x="322.5" y="673" text-anchor="middle" font-size="18" font-weight="700" fill="#3c6088">549 ₽</text>
+  </g>
+
+  <!-- ===== Подарочный 70x90/8 ===== -->
+  <g>
+    <rect x="458" y="88" width="387" height="522" fill="#f6efe0" stroke="#ddd0ad" stroke-width="1"/>
+
+    <!-- ленточка-ляссе, торчащая из верхнего обреза -->
+    <polygon points="748,50 755,60 762,50 762,90 748,90" fill="#cda434" stroke="#a9832a" stroke-width="1"/>
+
+    <rect x="448" y="78" width="387" height="522" rx="4" fill="#1f5c4c" stroke="#00000022" stroke-width="1"/>
+    <rect x="448" y="78" width="20" height="522" fill="#14453a"/>
+    <rect x="448" y="78" width="387" height="522" rx="4" fill="none" stroke="#cda434" stroke-width="3"/>
+
+    <text x="641.5" y="628" text-anchor="middle" font-size="16.5" font-weight="700" fill="#2a2a2a">Подарочный 70×90/8</text>
+    <text x="641.5" y="649" text-anchor="middle" font-size="13.5" fill="#5c5c5c">215 × 290 мм</text>
+    <text x="641.5" y="673" text-anchor="middle" font-size="20" font-weight="700" fill="#14453a">1 190 ₽</text>
+  </g>
+</svg></div></div></div></div>
+<div class="card" id="svg-booth" style="--c:#ef5350"><header><span class="tag">SVG · ярмарки</span><h3>План стенда на книжной ярмарке</h3></header><div class="body"><p class="why">ТЗ застройщику стенда за минуту — правится словами, как и всё остальное.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_svg_booth"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_svg_booth">Нарисуй SVG: план стенда издательства 6×4 м на книжной ярмарке, вид сверху: стеллажи с новинками вдоль левой стены, касса и склад справа, стол автограф-сессий со стульями в центре, промо-стойка у входа; размерные стрелки «6 м» и «4 м», стрелка «вход». В ответе только код SVG.</pre></div><div class="render"><div class="rlab">Результат — SVG как есть, без правок</div><div class="svgwrap"><svg style="width:100%;max-width:560px;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="dimArrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#8a8f98"/>
+    </marker>
+    <marker id="entArrow" markerWidth="12" markerHeight="12" refX="6" refY="10" orient="auto">
+      <path d="M0,10 L6,0 L12,10 Z" fill="#2b2f38"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="640" fill="#fafaf7"/>
+
+  <text x="400" y="34" text-anchor="middle" font-size="18" font-weight="600" fill="#2b2f38">План стенда издательства (вид сверху)</text>
+
+  <!-- Top dimension -->
+  <line x1="150" y1="150" x2="150" y2="105" stroke="#c7c9cd" stroke-width="1"/>
+  <line x1="690" y1="150" x2="690" y2="105" stroke="#c7c9cd" stroke-width="1"/>
+  <line x1="150" y1="110" x2="690" y2="110" stroke="#8a8f98" stroke-width="1" marker-start="url(#dimArrow)" marker-end="url(#dimArrow)"/>
+  <text x="420" y="98" text-anchor="middle" font-size="15" fill="#555">6 м</text>
+
+  <!-- Left dimension -->
+  <line x1="150" y1="150" x2="105" y2="150" stroke="#c7c9cd" stroke-width="1"/>
+  <line x1="150" y1="510" x2="105" y2="510" stroke="#c7c9cd" stroke-width="1"/>
+  <line x1="100" y1="150" x2="100" y2="510" stroke="#8a8f98" stroke-width="1" marker-start="url(#dimArrow)" marker-end="url(#dimArrow)"/>
+  <text x="75" y="330" text-anchor="middle" font-size="15" fill="#555" transform="rotate(-90 75 330)">4 м</text>
+
+  <!-- Zones -->
+  <!-- Left: Стеллажи с новинками -->
+  <rect x="150" y="150" width="80" height="360" fill="#eef3f7" stroke="#9fb4c6" stroke-width="1.5"/>
+  <rect x="162" y="168" width="56" height="12" fill="#dbe6ee" stroke="#8fa8bd" stroke-width="1"/>
+  <rect x="162" y="188" width="56" height="12" fill="#dbe6ee" stroke="#8fa8bd" stroke-width="1"/>
+  <rect x="162" y="468" width="56" height="12" fill="#dbe6ee" stroke="#8fa8bd" stroke-width="1"/>
+  <rect x="162" y="488" width="56" height="12" fill="#dbe6ee" stroke="#8fa8bd" stroke-width="1"/>
+  <text x="190" y="335" text-anchor="middle" font-size="14" fill="#2b2f38" transform="rotate(-90 190 335)">Стеллажи с новинками</text>
+
+  <!-- Right: Касса -->
+  <rect x="610" y="150" width="80" height="250" fill="#f7f3ea" stroke="#b6a179" stroke-width="1.5"/>
+  <rect x="622" y="368" width="56" height="16" fill="#ffffff" stroke="#b6a179" stroke-width="1"/>
+  <text x="650" y="279" text-anchor="middle" font-size="13" fill="#2b2f38">Касса</text>
+
+  <!-- Right: Склад (небольшая комната в углу) -->
+  <rect x="610" y="400" width="80" height="110" fill="#efece5" stroke="#2b2f38" stroke-width="2.5"/>
+  <line x1="640" y1="400" x2="690" y2="400" stroke="#2b2f38" stroke-width="2.5"/>
+  <line x1="610" y1="400" x2="610" y2="430" stroke="#2b2f38" stroke-width="1.5"/>
+  <path d="M610,400 A30,30 0 0,1 640,430" fill="none" stroke="#8a8f98" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="650" y="459" text-anchor="middle" font-size="13" fill="#2b2f38">Склад</text>
+
+  <!-- Center: Стол автограф-сессий со стульями -->
+  <circle cx="350" cy="222" r="8" fill="#ffffff" stroke="#555" stroke-width="1.5"/>
+  <circle cx="420" cy="222" r="8" fill="#ffffff" stroke="#555" stroke-width="1.5"/>
+  <circle cx="490" cy="222" r="8" fill="#ffffff" stroke="#555" stroke-width="1.5"/>
+  <circle cx="350" cy="348" r="8" fill="#ffffff" stroke="#555" stroke-width="1.5"/>
+  <circle cx="420" cy="348" r="8" fill="#ffffff" stroke="#555" stroke-width="1.5"/>
+  <circle cx="490" cy="348" r="8" fill="#ffffff" stroke="#555" stroke-width="1.5"/>
+  <rect x="320" y="250" width="200" height="70" rx="6" fill="#fdf8ec" stroke="#8a7550" stroke-width="2"/>
+  <text x="420" y="290" text-anchor="middle" font-size="12" fill="#2b2f38">Стол автограф-сессий</text>
+
+  <!-- Промо-стойка у входа -->
+  <rect x="370" y="400" width="100" height="60" fill="#eef7ee" stroke="#5f9e6f" stroke-width="2"/>
+  <text x="420" y="433" text-anchor="middle" font-size="11" fill="#2b2f38">Промо-стойка</text>
+
+  <!-- Стены стенда с проёмом входа -->
+  <line x1="150" y1="150" x2="690" y2="150" stroke="#2b2f38" stroke-width="4" stroke-linecap="square"/>
+  <line x1="690" y1="150" x2="690" y2="510" stroke="#2b2f38" stroke-width="4" stroke-linecap="square"/>
+  <line x1="150" y1="150" x2="150" y2="510" stroke="#2b2f38" stroke-width="4" stroke-linecap="square"/>
+  <line x1="150" y1="510" x2="390" y2="510" stroke="#2b2f38" stroke-width="4" stroke-linecap="square"/>
+  <line x1="450" y1="510" x2="690" y2="510" stroke="#2b2f38" stroke-width="4" stroke-linecap="square"/>
+
+  <!-- Вход -->
+  <line x1="420" y1="560" x2="420" y2="514" stroke="#2b2f38" stroke-width="2.5" marker-end="url(#entArrow)"/>
+  <text x="420" y="580" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2f38">вход</text>
+</svg></div></div></div></div>
+
+<h2 id="library"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Забрать всё <span>разом</span></h2>
+<div class="libwrap" id="librarywrap">
+  <p>Все промпты занятия 2 одним текстом — скопируйте себе в заметки.</p>
+  <button class="copy" data-src="librarytext"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать библиотеку</i></button>
+  <pre id="librarytext" style="display:none">БИБЛИОТЕКА ПРОМПТОВ — ЗАНЯТИЕ 2 «СТРУКТУРИРОВАНИЕ И ВИЗУАЛИЗАЦИЯ»
+
+───── MERMAID ─────
+
+● Процесс согласования рукописи
+Рукопись проходит рецензию, потом редсовет решает: договор и редактура — или отказ. Построй flowchart в Mermaid, не больше 8 узлов, подписи до 3 слов. Выведи только код Mermaid.
+
+● Mind-map продвижения новинки
+Составь mindmap плана продвижения новинки: каналы (соцсети, рассылка), форматы (электронка, аудио), партнёры (маркетплейсы), бюджет (реклама, PR). Формат — Mermaid mindmap, выведи только код.
+
+● Timeline запуска книги
+Собери timeline запуска книги с июня по октябрь: сдача рукописи, редактура и обложка, вёрстка и печать, предзаказ, старт продаж. Формат — Mermaid timeline, выведи только код.
+
+● Диаграмма Ганта: редакционный план
+Построй диаграмму Ганта редакционного плана на сентябрь: сбор тем (5 дней), статьи (10 дней), редактура (7 дней), вёрстка (5 дней), публикация (3 дня) — разделы «Тексты» и «Выпуск». Формат — Mermaid gantt, выведи только код.
+
+───── ШАБЛОНЫ ─────
+
+● Универсальный промпт для диаграммы
+Построй &lt;тип: flowchart / mindmap / timeline / gantt&gt; в Mermaid.
+&lt;Опишите словами: что за процесс, какие шаги, что с чем связано.&gt;
+Не больше 8 узлов, подписи до 3 слов. Выведи только код Mermaid.
+
+Дальше правьте диалогом: «добавь этап корректуры», «объедини первые два шага».
+
+● Фирменные цвета — промптом
+Примени к диаграмме фирменные цвета: синий #004A98, алый #D91016.
+Настрой линии, подписи и фон; проверь читаемость текста и визуальный баланс.
+
+● Гант без установки: Perplexity
+Построй диаграмму Ганта по приложенному файлу с учётом загрузки ресурсов.
+
+● Дашборд из еженедельной отчётности
+Проанализируй приложенный пакет еженедельных отчётов.
+Построй график этапов «план/факт» и накопленное отставание в днях.
+Если нужен интерактивный график — выведи спецификацию Vega-Lite.
+
+───── ГЕНЕРАЦИЯ SVG ─────
+
+● Стикер-бейдж на обложку
+Нарисуй SVG: круглый промо-стикер для обложки книги, диаметр 300px. Красный круг с белой окантовкой, в центре крупная белая надпись «БЕСТСЕЛЛЕР», под ней белая звезда. Стиль — ценник-стикер маркетплейса. В ответе только код SVG.
+
+● Чертёж обложки для типографии
+Нарисуй SVG-чертёж разворота обложки книги для типографии: задняя сторонка, корешок, передняя сторонка — с подписями; вокруг пунктирная рамка вылетов 5 мм; сверху размерные стрелки 140 мм / 18 мм / 140 мм. Светлый фон, тонкие линии, стиль технического чертежа. В ответе только код SVG.
+
+● Воронка продаж книги
+Нарисуй SVG: воронку продаж книги из 4 сужающихся ступеней: «Показы карточки — 120 000», «Открыли карточку — 18 000», «Добавили в корзину — 3 400», «Купили — 1 150». Цвета от синего к зелёному, подписи внутри ступеней, справа конверсии 15%, 19%, 34%. В ответе только код SVG.
+
+● График продаж в фирменных цветах
+Нарисуй SVG: столбчатую диаграмму «Продажи по месяцам» (март–август: 8 200, 9 100, 12 400, 11 000, 14 800, 16 300). Фирменные цвета: синий #004A98, лучший месяц — алым #D91016. Значения над столбцами, месяцы под ними, лёгкая сетка. В ответе только код SVG.
+
+● Контент-план на месяц
+Нарисуй SVG: календарь-план публикаций на сентябрь 2026 (сетка 7×5, месяц начинается со вторника). Отметь даты: 3 — «анонс», 10 — «релиз книги», 17 — «отзывы блогеров», 24 — «подборка», 29 — «скидка −20%»; релизы и акции — алым, остальное синим. В ответе только код SVG.
+
+● Топ-3 бестселлера месяца
+Нарисуй SVG: пьедестал «Топ-3 бестселлера месяца»: три ступени подиума с золотым, серебряным и бронзовым акцентами, на каждой — обложка-плейсхолдер с номером места и названием книги. В ответе только код SVG.
+
+● Карточка рейтинга книги
+Нарисуй SVG: карточку рейтинга книги примерно 500×160: слева крупно «4,7» и пять звёзд (последняя заполнена на 70%), справа шкалы распределения оценок 5★ — 78%, 4★ — 15%, 3★ и ниже — 7%, внизу «1 284 отзыва читателей». В ответе только код SVG.
+
+● Форматы изданий в масштабе
+Нарисуй SVG: сравнение трёх форматов изданий в реальном масштабе на одной базовой линии: покет 76×100, стандарт 84×108, подарочный 70×90/8 с лентой-ляссе; под каждым — название формата, размер в мм и цена (349 ₽ / 549 ₽ / 1 190 ₽). В ответе только код SVG.
+
+● План стенда на книжной ярмарке
+Нарисуй SVG: план стенда издательства 6×4 м на книжной ярмарке, вид сверху: стеллажи с новинками вдоль левой стены, касса и склад справа, стол автограф-сессий со стульями в центре, промо-стойка у входа; размерные стрелки «6 м» и «4 м», стрелка «вход». В ответе только код SVG.</pre>
+</div>
+
+<footer>
+<b>Как проверены примеры:</b> каждый Mermaid-код отрисован без правок (рендер на этой
+странице — из того же кода); каждый SVG — реальный ответ модели на приведённый промпт,
+без ручных исправлений. Модели вероятностны — ваш результат будет отличаться в деталях.<br>
+Названия книг, цифры и цены в примерах вымышлены.<br>
+Ведущий занятия — Ярослав Шуваев · марафон «ИИ в работе», АСТ-Литрес-ЭКСМО, 2026.
+</footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({startOnLoad: true, theme: 'neutral', fontFamily: 'Inter, Arial, sans-serif'});
+
+document.querySelectorAll('.copy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var src = document.getElementById(b.dataset.src);
+    if (!src) return;
+    navigator.clipboard.writeText(src.textContent).then(function () {
+      var i = b.querySelector('i'); var old = i.textContent;
+      b.classList.add('ok'); i.textContent = 'Скопировано';
+      setTimeout(function () { b.classList.remove('ok'); i.textContent = old; }, 1400);
+    });
+  });
+});
+
+</script>
+</body></html>
