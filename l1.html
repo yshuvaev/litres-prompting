@@ -115,6 +115,12 @@ textarea.fin{resize:vertical;font-size:12.5px}
 .iprompt.ipbad .phead{color:#ef5350}
 .iprompt.ipbad .pv .ph{color:#ef5350}
 .iprompt.ipbad .pv .phv{color:#f0a9a7}
+
+.home-fab{position:fixed;right:18px;bottom:18px;z-index:50;display:inline-flex;
+  align-items:center;gap:8px;background:#ff5533;color:#fff;border-radius:999px;
+  padding:10px 18px;font:700 13.5px Inter,Arial,sans-serif;text-decoration:none;
+  box-shadow:0 4px 18px rgba(0,0,0,.45)}
+.home-fab:hover{filter:brightness(1.08)}
 </style></head><body>
 <header class="top"><div class="wrap">
   <div class="prog">МАРАФОН «ИИ В РАБОТЕ» · АСТ-ЛИТРЕС-ЭКСМО</div>
@@ -911,7 +917,7 @@ textarea.fin{resize:vertical;font-size:12.5px}
 Ведущий занятия — Ярослав Шуваев · марафон «ИИ в работе», АСТ-Литрес-ЭКСМО, 2026.
 </footer>
 </div>
-<script>
+<a class="home-fab" href="index.html">⌂ Все занятия</a><script>
 // ── интерактивные промпты: [[переменные]] из формы «Дано» ──
 var PROMPTS = {}, MODES = {};
 document.querySelectorAll('script.casedata').forEach(function (s) {
