@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Аналитика данных: Excel — материалы занятия · АСТ-Литрес-ЭКСМО</title>
+<meta name="description" content="Материалы занятия «Аналитика данных: Excel»: живые кейсы с файлами, промпт-шаблоны для формул, CSV с формулами от ИИ, QUERY в Google Таблицах. Марафон «ИИ в работе».">
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#1e2027;color:rgba(255,255,255,.88);
+  font:16px/1.62 Inter,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:0 20px 72px}
+header.top{background:linear-gradient(180deg,#17181d, #1e2027);padding:34px 0 8px;
+  border-bottom:1px solid rgba(255,255,255,.09)}
+header.top .wrap{padding-bottom:18px}
+.prog{font-size:10px;font-weight:800;letter-spacing:.16em;color:#ff5533}
+h1{margin:9px 0 6px;font-size:clamp(24px,5vw,32px);font-weight:800;line-height:1.14;
+  letter-spacing:-.015em;color:#fff}
+h1 em{font-style:normal;color:#ff5533}
+.sub{font-size:14px;color:rgba(255,255,255,.62);max-width:64ch}
+nav.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+nav.jump a{display:inline-flex;align-items:center;gap:7px;background:#32343c;
+  border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:6px 14px;font-size:12.5px;
+  font-weight:600;color:rgba(255,255,255,.88);text-decoration:none}
+nav.jump a:hover{border-color:#ff5533;color:#fff}
+h2{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800;color:#fff;
+  margin:46px 0 4px;letter-spacing:-.01em;scroll-margin-top:16px}
+h2 span{color:#ff5533}
+h2 svg{flex:0 0 auto}
+.lead{color:rgba(255,255,255,.62);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+.intro{background:#282a31;border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:18px 22px;
+  margin-top:26px}
+.intro p{margin:0 0 9px;font-size:14.5px;color:rgba(255,255,255,.62)}
+.intro p:last-child{margin:0}
+.intro b{color:rgba(255,255,255,.88)}
+.card{background:#282a31;border:1px solid rgba(255,255,255,.09);border-left:4px solid var(--c);
+  border-radius:12px;margin-bottom:14px;overflow:hidden;scroll-margin-top:16px}
+.card header{padding:14px 20px 0}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--c)}
+.card h3{margin:4px 0 0;font-size:17.5px;font-weight:700;letter-spacing:-.01em;color:#fff}
+.card .body{padding:10px 20px 16px}
+.why{color:rgba(255,255,255,.62);font-size:14px;margin:6px 0 12px}
+.bad{display:flex;gap:10px;align-items:baseline;background:rgba(239,83,80,.08);
+  border:1px solid rgba(239,83,80,.3);border-radius:8px;padding:8px 12px;margin:0 0 10px}
+.blab{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:#ef5350;white-space:nowrap}
+.btext{font-size:13.5px;color:rgba(255,255,255,.62)}
+.prompt{border:1px solid rgba(255,255,255,.09);border-radius:10px;overflow:hidden;margin:0 0 10px;
+  background:#191b20}
+.phead{display:flex;justify-content:space-between;align-items:center;
+  background:#32343c;border-bottom:1px solid rgba(255,255,255,.09);padding:6px 8px 6px 12px;
+  font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(255,255,255,.42)}
+.copy{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.09);
+  background:#282a31;border-radius:7px;padding:4px 9px;font:600 11.5px Inter,Arial;
+  color:rgba(255,255,255,.88);cursor:pointer}
+.copy:active{transform:scale(.97)}
+.copy.ok{border-color:#2fbf76;color:#2fbf76}
+.ptext{margin:0;padding:12px 14px;font:12.8px/1.55 'SF Mono',Consolas,Menlo,monospace;
+  white-space:pre-wrap;word-break:break-word;color:rgba(255,255,255,.88)}
+details{border:1px solid rgba(255,255,255,.09);border-radius:10px;margin:0 0 10px;background:#282a31}
+details summary{cursor:pointer;padding:9px 14px;font-size:13px;font-weight:600;
+  color:rgba(255,255,255,.62);list-style-position:inside}
+details[open] summary{border-bottom:1px solid rgba(255,255,255,.09)}
+.tpl{margin:0;padding:12px 14px;font-size:14px;font-weight:600;color:rgba(255,255,255,.88)}
+.run summary{color:#6b93f2}
+.badrun summary{color:#ef5350}
+.rbody{padding:12px 16px;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.62);
+  max-height:460px;overflow:auto}
+.rbody p{margin:0 0 10px}
+.rbody b{color:rgba(255,255,255,.88)}
+.rbody code{background:#32343c;border-radius:4px;padding:1px 5px;
+  font:12px 'SF Mono',Consolas,Menlo,monospace;color:rgba(255,255,255,.88)}
+.rbody .mdh{font-weight:800;color:#fff;margin:14px 0 6px;font-size:14px}
+.rbody ul,.rbody ol{margin:0 0 10px;padding-left:22px}
+.rbody li{margin:0 0 4px}
+.rbody hr{border:none;border-top:1px solid rgba(255,255,255,.09);margin:12px 0}
+.rbody .mdcode{background:#191b20;border:1px solid rgba(255,255,255,.09);border-radius:8px;
+  padding:10px 12px;font:12px/1.5 'SF Mono',Consolas,Menlo,monospace;overflow-x:auto;
+  color:rgba(255,255,255,.88)}
+.tblwrap{overflow-x:auto;margin:0 0 12px;border:1px solid rgba(255,255,255,.09);border-radius:8px}
+.rbody table{border-collapse:collapse;width:100%;font-size:12.8px}
+.rbody th{background:#32343c;color:#fff;text-align:left;font-weight:700;
+  padding:8px 12px;border-bottom:2px solid #ff5533;white-space:nowrap}
+.rbody td{padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.09);vertical-align:top;
+  color:rgba(255,255,255,.62)}
+.rbody tr:last-child td{border-bottom:none}
+.rbody tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.libwrap{background:#282a31;border:1px solid rgba(255,85,51,.35);border-radius:14px;
+  padding:20px 22px;margin-top:10px;scroll-margin-top:16px}
+.libwrap p{color:rgba(255,255,255,.62);font-size:14px;margin:0 0 12px}
+.libwrap .copy{background:#ff5533;border-color:#ff5533;color:#fff;font-size:12.5px;
+  padding:8px 14px}
+footer{margin-top:56px;color:rgba(255,255,255,.42);font-size:12.5px;line-height:1.6}
+footer b{color:rgba(255,255,255,.62)}
+.given{background:#191b20;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:10px 14px 12px;
+  margin:0 0 10px}
+.ghead{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);margin-bottom:8px}
+.frow{display:flex;gap:10px;margin-bottom:6px;align-items:flex-start}
+.flab{flex:0 0 168px;font-size:12px;font-weight:600;color:rgba(255,255,255,.62);padding-top:7px}
+.fin{flex:1;background:#282a31;border:1px solid rgba(255,255,255,.09);border-radius:7px;color:rgba(255,255,255,.88);
+  font:13px/1.5 Inter,Arial,sans-serif;padding:6px 10px;min-width:0}
+.fin:focus{outline:none;border-color:#ff5533}
+textarea.fin{resize:vertical;font-size:12.5px}
+.pctl{display:inline-flex;align-items:center;gap:6px}
+.tgl{border:1px solid rgba(255,255,255,.09);background:#282a31;border-radius:7px;padding:4px 10px;
+  font:600 11.5px Inter,Arial;color:rgba(255,255,255,.62);cursor:pointer}
+.tgl.on{border-color:#ff5533;color:#fff;background:rgba(255,85,51,.15)}
+.pv{font:12.8px/1.55 'SF Mono',Consolas,Menlo,monospace;white-space:pre-wrap;
+  word-break:break-word;color:rgba(255,255,255,.88);padding:12px 14px}
+.pv .ph{color:#ff5533;font-weight:700}
+.pv .phv{color:#ffb59f}
+.iprompt.ipbad{border-color:rgba(239,83,80,.45)}
+.iprompt.ipbad .phead{color:#ef5350}
+.iprompt.ipbad .pv .ph{color:#ef5350}
+.iprompt.ipbad .pv .phv{color:#f0a9a7}
+
+.sheet{border:1px solid #c9cdd3;border-radius:8px;overflow:hidden;background:#fff;margin:0 0 6px}
+.fbar{display:flex;align-items:center;gap:8px;background:#f8f9fa;border-bottom:1px solid #dadce0;
+  padding:5px 10px;font:12px 'SF Mono',Consolas,monospace;color:#202124}
+.fbar .fx{font:italic 700 12px Georgia,serif;color:#5f6368;border-right:1px solid #dadce0;padding-right:8px}
+.fbar .fexpr{white-space:nowrap;overflow-x:auto}
+.gridwrap{overflow-x:auto}
+.sheet table{border-collapse:collapse;font:12.5px Arial,sans-serif;color:#202124;width:100%}
+.sheet th{background:#f1f3f4;border:1px solid #dadce0;color:#5f6368;font-weight:600;
+  padding:2px 8px;font-size:11px;text-align:center;min-width:26px}
+.sheet td{border:1px solid #e2e5e9;padding:3px 9px;white-space:nowrap;background:#fff}
+.sheet td.hdr{font-weight:700;background:#fafbfc}
+.sheet td.xbad{background:#fce8e6;color:#c5221f;font-weight:600}
+.sheet td.xres{background:#e6f4ea;color:#137333;font-weight:600}
+.scap{background:#f8f9fa;border-top:1px solid #dadce0;padding:5px 10px;font:11px Arial;color:#5f6368}
+.frmla{background:#32343c;border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:8px 12px;
+  font:600 13px 'SF Mono',Consolas,monospace;color:#ff5533;margin:0 0 8px;overflow-x:auto;white-space:nowrap}
+.fold{border:1px solid rgba(255,255,255,.09);border-radius:10px;background:#32343c;margin:0 0 10px}
+.fold summary{cursor:pointer;padding:10px 14px;font-weight:700;font-size:13.5px;color:rgba(255,255,255,.88);
+  list-style:none;display:flex;align-items:center;gap:8px}
+.fold summary::before{content:'▸';color:#ff5533;transition:transform .15s}
+.fold[open] summary::before{transform:rotate(90deg)}
+.fold summary::-webkit-details-marker{display:none}
+.foldbody{padding:2px 16px 14px;font-size:13.5px;color:rgba(255,255,255,.62);line-height:1.6}
+.foldbody ol{margin:6px 0 6px 18px;padding:0}
+.foldbody li{margin:0 0 7px}
+.foldbody b{color:rgba(255,255,255,.88)}
+.dl{display:inline-flex;align-items:center;gap:7px;background:#32343c;border:1px solid rgba(255,255,255,.09);
+  border-radius:999px;padding:6px 13px;margin:0 8px 8px 0;font-size:12.5px;font-weight:600;
+  color:rgba(255,255,255,.88);text-decoration:none}
+.dl:hover{border-color:#ff5533}
+.dl span{color:rgba(255,255,255,.42);font-weight:400;font-family:'SF Mono',Consolas,monospace;font-size:11px}
+.gloss{width:100%;border-collapse:collapse;font-size:13px}
+.gloss th{text-align:left;color:rgba(255,255,255,.42);font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.09)}
+.gloss td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.09);vertical-align:top;color:rgba(255,255,255,.62)}
+.gloss td:first-child{font-weight:700;color:rgba(255,255,255,.88);white-space:nowrap}
+.gloss td:nth-child(2){font-family:'SF Mono',Consolas,monospace;font-size:12px;color:#ff5533;white-space:nowrap}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.twocol{grid-template-columns:1fr}}
+.backlink{display:inline-flex;align-items:center;gap:7px;background:#32343c;
+  border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:6px 14px;font-size:12.5px;
+  font-weight:600;color:rgba(255,255,255,.88);text-decoration:none}
+.backlink:hover{border-color:#ff5533;color:#fff}
+.home-fab{position:fixed;right:18px;bottom:18px;z-index:50;display:inline-flex;
+  align-items:center;gap:8px;background:#ff5533;color:#fff;border-radius:999px;
+  padding:10px 18px;font:700 13.5px Inter,Arial,sans-serif;text-decoration:none;
+  box-shadow:0 4px 18px rgba(0,0,0,.45)}
+.home-fab:hover{filter:brightness(1.08)}
+</style></head><body>
+<header class="top"><div class="wrap">
+  <div class="prog">МАРАФОН «ИИ В РАБОТЕ» · АСТ-ЛИТРЕС-ЭКСМО · ЗАНЯТИЕ 3</div>
+  <h1>Аналитика данных: Excel — <em>формулы пишет ИИ</em></h1>
+  <p class="sub">Три живых кейса с файлами для повторения, шаблоны промптов, готовый
+  CSV с формулами от ИИ и SQL-запросы QUERY. Скачивайте файлы, копируйте промпты
+  и повторяйте на своих данных.</p>
+  <nav class="jump"><a href="#cases"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6.5" x2="16" y2="6.5"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16" y2="18.5"/></svg> Кейсы</a><a href="#tricks"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.4 1 2.3h6c0-.9.4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg> Приёмы</a><a href="#csvai"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> CSV от ИИ</a><a href="#query"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg> QUERY</a><a href="#howto"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Инструкции</a><a href="#library"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Вся библиотека</a><a href="index.html" class="backlink">⌂ Все занятия</a><a href="l2.html" class="backlink">← Занятие 2: визуализация</a></nav>
+</div></header>
+<div class="wrap">
+
+<div class="intro">
+  <p><b>Как пользоваться:</b> скачайте CSV-файл кейса → импортируйте в Excel или
+  Google Таблицы (инструкции — <a href="#howto" style="color:#ff5533">внизу страницы</a>) →
+  скопируйте промпт → вставьте формулу из ответа. «Образ результата» под каждым кейсом
+  показывает, что должно получиться.</p>
+</div>
+
+<h2 id="cases"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6.5" x2="16" y2="6.5"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16" y2="18.5"/></svg> Три кейса: <span>данные → задача → промпт → результат</span></h2>
+<p class="lead">Числа в файлах совпадают с примерами на слайдах занятия — сможете
+сверить свой результат с «образом результата».</p>
+<div class="card" id="case1" style="--c:#6b93f2"><header><span class="tag">Кейс 1 · ВПР</span><h3>Подтянуть цены из справочника</h3></header><div class="body"><p class="why">В выгрузке продаж нет отпускных цен — они на соседнем листе. Заполняем столбец «Цена», ничего не перенабирая.</p><div class="twocol"><div class="sheet"><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr><tr><th>1</th><td class="hdr">Книга</td><td class="hdr">Канал</td><td class="hdr">Продано</td><td class="hdr">Цена</td></tr><tr><th>2</th><td>Тихий сад</td><td>Литрес</td><td>1240</td><td class="xbad"></td></tr><tr><th>3</th><td>Северный экспресс</td><td>Ozon</td><td>415</td><td class="xbad"></td></tr><tr><th>4</th><td>Шёпот времени</td><td>WB</td><td>820</td><td class="xbad"></td></tr><tr><th>5</th><td>Дом у маяка</td><td>Литрес</td><td>96</td><td class="xbad"></td></tr><tr><th>6</th><td>Игры разума</td><td>Ozon</td><td>555</td><td class="xbad"></td></tr><tr><th>7</th><td>Тихий сад</td><td>WB</td><td>301</td><td class="xbad"></td></tr></table></div><div class="scap">Лист «Продажи» — цены пустые</div></div><div class="sheet"><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr><tr><th>1</th><td class="hdr">Книга</td><td class="hdr">Автор</td><td class="hdr">Цена</td></tr><tr><th>2</th><td>Дом у маяка</td><td>П. Орлова</td><td>329</td></tr><tr><th>3</th><td>Игры разума</td><td>С. Ким</td><td>540</td></tr><tr><th>4</th><td>Северный экспресс</td><td>А. Волков</td><td>449</td></tr><tr><th>5</th><td>Тихий сад</td><td>М. Лебедева</td><td>349</td></tr><tr><th>6</th><td>Шёпот времени</td><td>И. Крылова</td><td>299</td></tr></table></div><div class="scap">Лист «Справочник» — цены здесь</div></div></div><a class="dl" href="files/l3/l3_prodazhi.csv" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Продажи <span>l3_prodazhi.csv</span></a><a class="dl" href="files/l3/l3_spravochnik.csv" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Справочник <span>l3_spravochnik.csv</span></a><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_vpr"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_vpr">Excel, русская локализация. Лист «Продажи»: A — названия книг, B — канал, C — продано штук. Лист «Справочник»: A2:A60 — названия, B — автор, C — отпускная цена. Дай формулу для ячейки D2 листа «Продажи»: подтянуть отпускную цену книги из справочника (точное совпадение). Объясни каждый аргумент.</pre></div><div class="frmla">=ВПР(A2;Справочник!A$2:C$60;3;ЛОЖЬ)</div><div class="sheet"><div class="fbar"><span class="fx">fx</span><span class="fexpr">=ВПР(A2;Справочник!A$2:C$60;3;ЛОЖЬ)</span></div><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr><tr><th>1</th><td class="hdr">Книга</td><td class="hdr">Канал</td><td class="hdr">Продано</td><td class="hdr">Цена</td></tr><tr><th>2</th><td>Тихий сад</td><td>Литрес</td><td>1240</td><td class="xres">349</td></tr><tr><th>3</th><td>Северный экспресс</td><td>Ozon</td><td>415</td><td class="xres">449</td></tr><tr><th>4</th><td>Шёпот времени</td><td>WB</td><td>820</td><td class="xres">299</td></tr><tr><th>5</th><td>Дом у маяка</td><td>Литрес</td><td>96</td><td class="xres">329</td></tr><tr><th>6</th><td>Игры разума</td><td>Ozon</td><td>555</td><td class="xres">540</td></tr><tr><th>7</th><td>Тихий сад</td><td>WB</td><td>301</td><td class="xres">349</td></tr></table></div><div class="scap">Образ результата: растянули формулу вниз — столбец заполнился</div></div><details class="fold"><summary>Расширение: подтянуть сразу три столбца одной формулой</summary><div class="foldbody"><div class="prompt"><div class="phead"><span>Следующая реплика того же диалога</span><button class="copy" data-src="p_merge"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_merge">Теперь подтяни на лист «Продажи» сразу автора, жанр и цену (столбцы D, E, F) так, чтобы формулу можно было растянуть вправо и вниз одним движением.</pre></div><div class="frmla">=ВПР($A2;Справочник!$A:$D;СТОЛБЕЦ(B1);0)</div><p>СТОЛБЕЦ(B1) возвращает 2 и при растягивании вправо сам становится 3 и 4 — формула тянется в обе стороны. Так объединяют две таблицы по ключу — аналог JOIN из мира баз данных.</p></div></details></div></div><div class="card" id="case2" style="--c:#2fbf76"><header><span class="tag">Кейс 2 · Группировка</span><h3>Продажи по дням → отчёт по месяцам</h3></header><div class="body"><p class="why">Выгрузка — каждая продажа отдельной строкой. Финдиректору нужен отчёт по месяцам. Смена разреза данных — два простых шага вместо одной страшной формулы.</p><div class="sheet"><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr><tr><th>1</th><td class="hdr">Дата</td><td class="hdr">Книга</td><td class="hdr">Выручка</td></tr><tr><th>2</th><td>03.06.2026</td><td>Тихий сад</td><td>48860</td></tr><tr><th>3</th><td>17.06.2026</td><td>Северный экспресс</td><td>112250</td></tr><tr><th>4</th><td>28.06.2026</td><td>Шёпот времени</td><td>35880</td></tr><tr><th>5</th><td>05.07.2026</td><td>Тихий сад</td><td>49550</td></tr><tr><th>6</th><td>14.07.2026</td><td>Игры разума</td><td>97200</td></tr><tr><th>7</th><td>25.07.2026</td><td>Северный экспресс</td><td>134700</td></tr><tr><th>8</th><td>02.08.2026</td><td>Шёпот времени</td><td>41990</td></tr><tr><th>9</th><td>19.08.2026</td><td>Дом у маяка</td><td>58480</td></tr><tr><th>10</th><td>30.08.2026</td><td>Игры разума</td><td>88560</td></tr></table></div><div class="scap">Лист «Продажи» — по дням (в реальном файле таких строк тысячи)</div></div><a class="dl" href="files/l3/l3_prodazhi_po_dnyam.csv" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Продажи по дням <span>l3_prodazhi_po_dnyam.csv</span></a><div class="prompt"><div class="phead"><span>Промпт — просим решение в два шага</span><button class="copy" data-src="p_months"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_months">Excel, русская локализация. Лист «Продажи»: A — дата продажи, B — книга, C — выручка. Продажи у меня по дням, а отчёт нужен по месяцам. Реши задачу в два простых шага: 1) формула служебного столбца D с номером месяца; 2) в E2:E4 я напишу номера месяцев (6, 7, 8) — дай простую формулу сводки для F2. Объясни аргументы.</pre></div><div class="frmla">D2:  =МЕСЯЦ(A2)</div><div class="frmla">F2:  =СУММЕСЛИ(D:D;E2;C:C)</div><div class="sheet"><div class="fbar"><span class="fx">fx</span><span class="fexpr">=СУММЕСЛИ(D:D;E2;C:C)</span></div><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr><tr><th>1</th><td class="hdr">Дата</td><td class="hdr">Книга</td><td class="hdr">Выручка</td><td class="hdr">Месяц</td><td class="hdr">№</td><td class="hdr">Выручка за месяц</td></tr><tr><th>2</th><td>03.06.2026</td><td>Тихий сад</td><td>48860</td><td class="xres">6</td><td>6</td><td class="xres">196 990</td></tr><tr><th>3</th><td>17.06.2026</td><td>Северный экспресс</td><td>112250</td><td class="xres">6</td><td>7</td><td class="xres">281 450</td></tr><tr><th>4</th><td>28.06.2026</td><td>Шёпот времени</td><td>35880</td><td class="xres">6</td><td>8</td><td class="xres">189 030</td></tr><tr><th>5</th><td>05.07.2026</td><td>Тихий сад</td><td>49550</td><td class="xres">7</td><td></td><td></td></tr><tr><th>6</th><td>14.07.2026</td><td>Игры разума</td><td>97200</td><td class="xres">7</td><td></td><td></td></tr><tr><th>7</th><td>25.07.2026</td><td>Северный экспресс</td><td>134700</td><td class="xres">7</td><td></td><td></td></tr><tr><th>8</th><td>02.08.2026</td><td>Шёпот времени</td><td>41990</td><td class="xres">8</td><td></td><td></td></tr><tr><th>9</th><td>19.08.2026</td><td>Дом у маяка</td><td>58480</td><td class="xres">8</td><td></td><td></td></tr><tr><th>10</th><td>30.08.2026</td><td>Игры разума</td><td>88560</td><td class="xres">8</td><td></td><td></td></tr></table></div><div class="scap">Образ результата: служебный столбец «Месяц» + сводка. Добавятся строки — отчёт пересчитается сам</div></div><details class="fold"><summary>Почему «в два шага», а не одной формулой?</summary><div class="foldbody"><p>Одной формулой тоже можно — но получится конструкция из СУММЕСЛИМН, ДАТА и ПОИСКПОЗ, которую сложно проверить глазами. Служебный столбец делает каждую часть решения прозрачной: видно и номера месяцев, и сводку. Правило: если формула от ИИ выглядит страшнее задачи — попросите «реши в два простых шага, разреши служебный столбец».</p></div></details></div></div><div class="card" id="case3" style="--c:#e0568a"><header><span class="tag">Кейс 3 · Дубликаты</span><h3>Найти дубли в каталоге</h3></header><div class="body"><p class="why">Каталог собирали из трёх источников — часть карточек задвоилась. Помечаем повторы по паре «название + автор», ничего не удаляя автоматически.</p><div class="sheet"><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th></tr><tr><th>1</th><td class="hdr">Название</td><td class="hdr">Автор</td></tr><tr><th>2</th><td>Тихий сад</td><td>М. Лебедева</td></tr><tr><th>3</th><td>Северный экспресс</td><td>А. Волков</td></tr><tr><th>4</th><td>Шёпот времени</td><td>И. Крылова</td></tr><tr><th>5</th><td class="xbad">Тихий сад</td><td class="xbad">М. Лебедева</td></tr><tr><th>6</th><td>Дом у маяка</td><td>П. Орлова</td></tr><tr><th>7</th><td>Игры разума</td><td>С. Ким</td></tr><tr><th>8</th><td class="xbad">Шёпот времени</td><td class="xbad">И. Крылова</td></tr></table></div><div class="scap">Лист «Каталог» — две карточки задвоились (в 2 000 строк глазами не найти)</div></div><a class="dl" href="files/l3/l3_katalog.csv" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Каталог с дублями <span>l3_katalog.csv</span></a><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_dup"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_dup">Excel, русская локализация. Лист «Каталог»: A — название книги, B — автор, строки 2–2000. 1) Дай формулу для столбца C, которая помечает строки-дубликаты по паре «название+автор» словом «дубль» — через СЧЁТЕСЛИМН, без склейки диапазонов. 2) Как подсветить такие строки условным форматированием. Кратко.</pre></div><div class="frmla">=ЕСЛИ(СЧЁТЕСЛИМН(A:A;A2;B:B;B2)&gt;1;"дубль";"")</div><div class="sheet"><div class="fbar"><span class="fx">fx</span><span class="fexpr">=ЕСЛИ(СЧЁТЕСЛИМН(A:A;A2;B:B;B2)&gt;1;"дубль";"")</span></div><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr><tr><th>1</th><td class="hdr">Название</td><td class="hdr">Автор</td><td class="hdr">Проверка</td></tr><tr><th>2</th><td>Тихий сад</td><td>М. Лебедева</td><td class="xres">дубль</td></tr><tr><th>3</th><td>Северный экспресс</td><td>А. Волков</td><td></td></tr><tr><th>4</th><td>Шёпот времени</td><td>И. Крылова</td><td class="xres">дубль</td></tr><tr><th>5</th><td>Тихий сад</td><td>М. Лебедева</td><td class="xres">дубль</td></tr><tr><th>6</th><td>Дом у маяка</td><td>П. Орлова</td><td></td></tr><tr><th>7</th><td>Игры разума</td><td>С. Ким</td><td></td></tr><tr><th>8</th><td>Шёпот времени</td><td>И. Крылова</td><td class="xres">дубль</td></tr></table></div><div class="scap">Образ результата: помечаются ВСЕ вхождения дубля — решение, что удалить, за человеком</div></div><details class="fold"><summary>Подсветить дубли цветом (условное форматирование)</summary><div class="foldbody"><ol><li>Выделите диапазон A2:B2000.</li><li><b>Excel:</b> Главная → Условное форматирование → Создать правило → «Использовать формулу». <b>Google Таблицы:</b> Формат → Условное форматирование → «Ваша формула».</li><li>Формула: <code>=СЧЁТЕСЛИМН($A:$A;$A2;$B:$B;$B2)&gt;1</code></li><li>Выберите заливку — дубли подсветятся сами.</li></ol></div></details></div></div>
+
+<h2 id="tricks"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.4 1 2.3h6c0-.9.4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg> Приёмы: <span>шаблон промпта и починка ошибок</span></h2>
+<div class="card" id="recipe" style="--c:#e8a13c"><header><span class="tag">Шаблон</span><h3>Промпт для любой формулы</h3></header><div class="body"><p class="why">ИИ не видит вашу таблицу. Опишите структуру, задачу, локализацию — и попросите объяснить аргументы: объяснение читаем, ошибку ловим до вставки.</p><div class="prompt"><div class="phead"><span>Шаблон — подставьте свои столбцы и задачу</span><button class="copy" data-src="p_recipe"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_recipe">Excel, русская локализация. Лист «Продажи»: A — книга, B — канал, C — выручка. [Опишите свою структуру и листы.]
+Задача: [что получить и в какой ячейке].
+Дай формулу и объясни каждый аргумент.</pre></div></div></div>
+<div class="card" id="gpr" style="--c:#e0568a"><header><span class="tag">Приём</span><h3>Таблица «лежит на боку»</h3></header><div class="body"><p class="why">Если месяцы идут по столбцам в одной строке — скажите об этом ИИ прямо, словами «таблица горизонтальная»: получите ГПР вместо ВПР с первого раза.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_gpr"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_gpr">Excel, русская локализация. Лист «План»: в строке 1 месяцы (B1:M1), в строке 2 — плановые тиражи (B2:M2). Обрати внимание: таблица горизонтальная, месяцы идут по столбцам в одной строке. В ячейке B5 пользователь выбирает месяц. Дай формулу для B6: найти плановый тираж выбранного месяца. Объясни аргументы.</pre></div><div class="frmla">=ГПР(B5;План!B1:M2;2;ЛОЖЬ)</div><p class="why">Универсальная альтернатива для любых направлений: <code>=ИНДЕКС(B2:M2;;ПОИСКПОЗ(B5;B1:M1;0))</code></p></div></div>
+<div class="card" id="nd" style="--c:#6b93f2"><header><span class="tag">Приём</span><h3>«#Н/Д, хотя всё на месте»</h3></header><div class="body"><p class="why">Ошибка формулы — не тупик, а следующий промпт: вставьте формулу, текст ошибки и пару строк данных. Типичные причины: пробелы, «число как текст», регистр.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_nd"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_nd">Формула =ВПР(A2;Справочник!A:C;3;0) возвращает #Н/Д, хотя книга «Тихий сад» в справочнике точно есть. Вот несколько строк моих данных: [вставьте 3–5 строк]. В чём типичные причины и как их проверить и починить? Ответь коротким списком: причина — проверка — лечение.</pre></div></div></div>
+
+<h2 id="csvai"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Шаг к скриптам: <span>готовая таблица от ИИ</span></h2>
+<div class="card" id="csvai" style="--c:#e8a13c"><header><span class="tag">Механика · шаг к скриптам</span><h3>ИИ отдаёт готовую таблицу с формулами</h3></header><div class="body"><p class="why">Не просить формулу — просить сразу файл: CSV, куда вы вставите свои данные. Главный секрет — в промпте: ячейки с формулами должны быть в кавычках, иначе «;» внутри формул разрежет их по ячейкам.</p><div class="prompt"><div class="phead"><span>Промпт (проверен на DeepSeek и Qwen)</span><button class="copy" data-src="p_csvgen"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_csvgen">Сгенерируй ГОТОВЫЙ CSV-файл (разделитель «;», русский Excel): столбцы A–C — дневные продажи (дата; книга; выручка) — оставь 6 строк-образцов, я заменю своими данными. Добавь служебный столбец D с формулой =МЕСЯЦ(A2), в E — номера месяцев, в F — формулу СУММЕСЛИ суммы выручки по месяцу из E. ВАЖНО: каждую ячейку с формулой оберни в кавычки (внутри формул есть «;», иначе Excel разрежет их по ячейкам). Выведи только содержимое CSV.</pre></div><div class="sheet"><div class="fbar"><span class="fx">fx</span><span class="fexpr">=СУММЕСЛИ(D2:D7;E2;C2:C7)</span></div><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr><tr><th>1</th><td class="hdr">Дата</td><td class="hdr">Книга</td><td class="hdr">Выручка</td><td class="hdr">Месяц</td><td class="hdr">№</td><td class="hdr">Сумма</td></tr><tr><th>2</th><td>01.06.2026</td><td>Книга 1</td><td>1000</td><td class="xres">6</td><td>6</td><td class="xres">2500</td></tr><tr><th>3</th><td>15.06.2026</td><td>Книга 2</td><td>1500</td><td class="xres">6</td><td>6</td><td class="xres">2500</td></tr><tr><th>4</th><td>01.07.2026</td><td>Книга 3</td><td>2000</td><td class="xres">7</td><td>7</td><td class="xres">4500</td></tr><tr><th>5</th><td>15.07.2026</td><td>Книга 4</td><td>2500</td><td class="xres">7</td><td>7</td><td class="xres">4500</td></tr><tr><th>6</th><td>01.08.2026</td><td>Книга 5</td><td>3000</td><td class="xres">8</td><td>8</td><td class="xres">6500</td></tr><tr><th>7</th><td>15.08.2026</td><td>Книга 6</td><td>3500</td><td class="xres">8</td><td>8</td><td class="xres">6500</td></tr></table></div><div class="scap">Образ результата: открыли файл в Excel — формулы в столбцах D и F уже посчитаны (в ячейке F2 — живая формула, см. строку fx)</div></div><a class="dl" href="files/l3/l3_otchet_ot_ii.csv" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Готовый файл от DeepSeek <span>l3_otchet_ot_ii.csv</span></a><details class="fold"><summary>Если формула вставилась текстом</summary><div class="foldbody"><ol><li>Проверьте, нет ли перед «=» апострофа <code>'</code> — удалите его.</li><li>Формат ячейки мог стать «Текстовый»: поставьте «Общий» и нажмите F2 → Enter в ячейке.</li><li>Google Таблицы: Файл → Импортировать → «Преобразовывать текст в числа, даты и формулы» — включите галочку.</li></ol></div></details><details class="fold"><summary>А сразу настоящий .xlsx?</summary><div class="foldbody"><p>Чат-модель отдаёт только текст — бинарный .xlsx она прислать не может и честно об этом говорит. Обходной путь: вставьте CSV в Google Таблицы и скачайте как .xlsx (Файл → Скачать). Настоящие .xlsx, Power Query и VBA-макросы — тема следующего занятия, 17.09.</p></div></details></div></div>
+
+<h2 id="query"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg> QUERY: <span>SQL внутри Google Таблиц</span></h2>
+<div class="card" id="query1" style="--c:#6b93f2"><header><span class="tag">QUERY · фильтр</span><h3>Выбрать, отфильтровать, отсортировать</h3></header><div class="body"><p class="why">QUERY — SQL внутри Google Таблиц: один запрос заменяет фильтры, сортировку и «вырезать-вставить». В Excel этой функции нет — там её роль играет Power Query.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_q1"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_q1">Google Таблицы. Лист «Продажи»: A — книга, B — канал, C — месяц, D — выручка (число). Дай формулу с функцией QUERY: показать книги канала «Ozon» за месяц «Мар», только столбцы «книга» и «выручка», по убыванию выручки. Объясни синтаксис.</pre></div><div class="frmla">=QUERY(Продажи!A:D; "SELECT A, D WHERE B='Ozon' AND C='Мар' ORDER BY D DESC"; 1)</div><p class="why">Читается как английская фраза: «выбери книгу и выручку, где канал Ozon и месяц март, отсортируй по убыванию».</p></div></div><div class="card" id="query2" style="--c:#2fbf76"><header><span class="tag">QUERY · сводная</span><h3>Сводная таблица одним запросом</h3></header><div class="body"><p class="why">Тот же кейс «дни → месяцы», но без служебных столбцов: группировка и разворот таблицы за один шаг.</p><div class="prompt"><div class="phead"><span>Промпт</span><button class="copy" data-src="p_q2"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать</i></button></div><pre class="ptext" id="p_q2">Та же таблица. Дай формулу с QUERY: сводная — суммарная выручка по каналам (строки) и месяцам (столбцы), одной формулой. Объясни, что делает pivot.</pre></div><div class="frmla">=QUERY(Продажи!A:D; "select B, sum(D) group by B pivot C")</div><div class="sheet"><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr><tr><th>1</th><td class="hdr">Канал</td><td class="hdr">Июнь</td><td class="hdr">Июль</td><td class="hdr">Август</td></tr><tr><th>2</th><td>Литрес</td><td class="xres">48 860</td><td class="xres">49 550</td><td class="xres">58 480</td></tr><tr><th>3</th><td>Ozon</td><td class="xres">112 250</td><td class="xres">231 900</td><td class="xres">88 560</td></tr><tr><th>4</th><td>WB</td><td class="xres">35 880</td><td class="xres"></td><td class="xres">41 990</td></tr></table></div><div class="scap">Образ результата: group by собрал каналы в строки, pivot разложил месяцы по столбцам</div></div></div></div>
+
+<h2 id="howto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Инструкции <span>и словарь</span></h2>
+<details class="fold"><summary>Как импортировать CSV в Excel — по шагам</summary><div class="foldbody"><ol><li>Откройте Excel → вкладка <b>Данные</b> → <b>Из текста/CSV</b>.</li><li>Выберите файл. В окне предпросмотра Excel сам определит кодировку («Источник файла») и разделитель — проверьте, что колонки разошлись правильно.</li><li>Если вместо русских букв кракозябры — смените «Источник файла» на <b>65001: Юникод (UTF-8)</b> или <b>1251: Кириллица (Windows)</b>.</li><li>Нажмите <b>Загрузить</b>. Готово — данные на листе.</li><li>Быстрый путь: двойной клик по файлу тоже работает, если файл сохранён с BOM (наши файлы — да), но через «Данные» надёжнее.</li></ol><div class="sheet"><div class="gridwrap"><table><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr><tr><th>1</th><td class="hdr">Книга</td><td class="hdr">Канал</td><td class="hdr">Продано</td></tr><tr><th>2</th><td>Тихий сад</td><td>Литрес</td><td>1240</td></tr><tr><th>3</th><td>Северный экспресс</td><td>Ozon</td><td>415</td></tr></table></div><div class="scap">Так должен выглядеть результат: каждая колонка — отдельно, кириллица целая</div></div></div></details><details class="fold"><summary>Как импортировать CSV в Google Таблицы — по шагам</summary><div class="foldbody"><ol><li>Откройте Google Таблицы → <b>Файл → Импортировать → Загрузка</b>.</li><li>Перетащите CSV-файл в окно.</li><li>В настройках импорта: «Тип разделителя» — <b>Определять автоматически</b> (или «;»), галочка <b>«Преобразовывать текст в числа, даты и формулы»</b> — включена (иначе формулы останутся текстом).</li><li>Нажмите <b>Импортировать данные</b>.</li><li>Вариант без файла: если CSV лежит по ссылке — в ячейку A1 напишите <code>=IMPORTDATA("https://…/report.csv")</code>: данные будут обновляться сами.</li></ol></div></details><details class="fold"><summary>QUERY: мини-шпаргалка по синтаксису</summary><div class="foldbody"><ol><li>QUERY — встроенная функция Google Таблиц, включать ничего не нужно.</li><li>Столбцы в запросе называются буквами листа: A, B, C…</li><li>Текстовые значения — в одинарных кавычках: <code>WHERE B='Ozon'</code>.</li><li>Если ответ «N/A: не найдено данных» — проверьте, что диапазон и буквы столбцов совпадают с вашим листом.</li></ol></div></details><details class="fold"><summary>Словарь функций: русские и английские имена</summary><div class="foldbody"><table class="gloss"><tr><th>Русский Excel</th><th>Английский / Google</th><th>Что делает</th></tr><tr><td>ВПР</td><td>VLOOKUP</td><td>Ищет значение в первом столбце диапазона, возвращает ячейку из указанного столбца той же строки. Классика «подтянуть из справочника».</td></tr><tr><td>ГПР</td><td>HLOOKUP</td><td>То же, что ВПР, но для горизонтальных таблиц: ищет в первой строке, возвращает из указанной строки.</td></tr><tr><td>ИНДЕКС</td><td>INDEX</td><td>Возвращает ячейку по номеру строки/столбца. В паре с ПОИСКПОЗ — универсальная замена ВПР и ГПР.</td></tr><tr><td>ПОИСКПОЗ</td><td>MATCH</td><td>Возвращает позицию значения в строке или столбце.</td></tr><tr><td>СУММЕСЛИ</td><td>SUMIF</td><td>Сумма по одному условию: =СУММЕСЛИ(где ищем; что ищем; что суммируем).</td></tr><tr><td>СУММЕСЛИМН</td><td>SUMIFS</td><td>Сумма по нескольким условиям; внимание: диапазон суммирования идёт ПЕРВЫМ аргументом.</td></tr><tr><td>СЧЁТЕСЛИ / СЧЁТЕСЛИМН</td><td>COUNTIF / COUNTIFS</td><td>Количество строк по условию/условиям. СЧЁТЕСЛИМН(A:A;A2;B:B;B2)&gt;1 — проверка на дубль.</td></tr><tr><td>СУММПРОИЗВ</td><td>SUMPRODUCT</td><td>Перемножает массивы и суммирует; работает с условиями-масками там, где обычные функции бессильны.</td></tr><tr><td>ЕСЛИ</td><td>IF</td><td>Условие: =ЕСЛИ(проверка; если да; если нет).</td></tr><tr><td>МЕСЯЦ / ГОД / ДЕНЬ</td><td>MONTH / YEAR / DAY</td><td>Извлекают часть даты. =МЕСЯЦ(A2) — номер месяца для группировок «дни → месяцы».</td></tr><tr><td>ДАТА</td><td>DATE</td><td>Собирает дату из года, месяца и дня: =ДАТА(2026;6;1).</td></tr><tr><td>СЖПРОБЕЛЫ</td><td>TRIM</td><td>Убирает лишние пробелы — первая проверка при #Н/Д в ВПР.</td></tr><tr><td>СОВПАД</td><td>EXACT</td><td>Точное посимвольное сравнение двух ячеек (учитывает регистр).</td></tr><tr><td>ТИП / ЗНАЧЕН</td><td>TYPE / VALUE</td><td>ТИП: 1 — число, 2 — текст; ЗНАЧЕН превращает «число-текст» в настоящее число.</td></tr><tr><td>ТРАНСП</td><td>TRANSPOSE</td><td>Разворачивает диапазон: строки становятся столбцами.</td></tr><tr><td>УНИК</td><td>UNIQUE</td><td>Список уникальных значений (новые Excel и Google Таблицы).</td></tr><tr><td>QUERY</td><td>QUERY</td><td>Только Google Таблицы: SQL-подобный запрос к диапазону — select, where, group by, order by, pivot.</td></tr><tr><td>IMPORTDATA</td><td>IMPORTDATA</td><td>Только Google Таблицы: загружает CSV по ссылке, обновляется сам.</td></tr></table><p style="margin-top:8px">В подсказках из интернета одна и та же функция встречается под двумя именами — это просто локализации. В промпте пишите «Excel, русская локализация», и ИИ ответит русскими именами. Google Таблицы понимают оба варианта.</p></div></details>
+
+<h2 id="library"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Забрать всё <span>разом</span></h2>
+<div class="libwrap" id="librarywrap">
+  <p>Все промпты занятия 3 одним текстом — скопируйте себе в заметки.</p>
+  <button class="copy" data-src="librarytext"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.2" y="1.2" width="9.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 14.8H3.2a2 2 0 0 1-2-2V4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><i>Скопировать библиотеку</i></button>
+  <pre id="librarytext" style="display:none">БИБЛИОТЕКА ПРОМПТОВ — ЗАНЯТИЕ 3 «АНАЛИТИКА ДАННЫХ: EXCEL»
+
+
+● Шаблон промпта для формул
+Excel, русская локализация. Лист «Продажи»: A — книга, B — канал, C — выручка. [Опишите свою структуру и листы.]
+Задача: [что получить и в какой ячейке].
+Дай формулу и объясни каждый аргумент.
+
+● Кейс 1. Цены из справочника (ВПР)
+Excel, русская локализация. Лист «Продажи»: A — названия книг, B — канал, C — продано штук. Лист «Справочник»: A2:A60 — названия, B — автор, C — отпускная цена. Дай формулу для ячейки D2 листа «Продажи»: подтянуть отпускную цену книги из справочника (точное совпадение). Объясни каждый аргумент.
+
+● Кейс 1+. Три столбца одной формулой
+Теперь подтяни на лист «Продажи» сразу автора, жанр и цену (столбцы D, E, F) так, чтобы формулу можно было растянуть вправо и вниз одним движением.
+
+● Горизонтальная таблица (ГПР)
+Excel, русская локализация. Лист «План»: в строке 1 месяцы (B1:M1), в строке 2 — плановые тиражи (B2:M2). Обрати внимание: таблица горизонтальная, месяцы идут по столбцам в одной строке. В ячейке B5 пользователь выбирает месяц. Дай формулу для B6: найти плановый тираж выбранного месяца. Объясни аргументы.
+
+● Кейс 2. Дни → месяцы, в два шага
+Excel, русская локализация. Лист «Продажи»: A — дата продажи, B — книга, C — выручка. Продажи у меня по дням, а отчёт нужен по месяцам. Реши задачу в два простых шага: 1) формула служебного столбца D с номером месяца; 2) в E2:E4 я напишу номера месяцев (6, 7, 8) — дай простую формулу сводки для F2. Объясни аргументы.
+
+● Кейс 3. Дубликаты
+Excel, русская локализация. Лист «Каталог»: A — название книги, B — автор, строки 2–2000. 1) Дай формулу для столбца C, которая помечает строки-дубликаты по паре «название+автор» словом «дубль» — через СЧЁТЕСЛИМН, без склейки диапазонов. 2) Как подсветить такие строки условным форматированием. Кратко.
+
+● Починка #Н/Д
+Формула =ВПР(A2;Справочник!A:C;3;0) возвращает #Н/Д, хотя книга «Тихий сад» в справочнике точно есть. Вот несколько строк моих данных: [вставьте 3–5 строк]. В чём типичные причины и как их проверить и починить? Ответь коротким списком: причина — проверка — лечение.
+
+● CSV с формулами от ИИ
+Сгенерируй ГОТОВЫЙ CSV-файл (разделитель «;», русский Excel): столбцы A–C — дневные продажи (дата; книга; выручка) — оставь 6 строк-образцов, я заменю своими данными. Добавь служебный столбец D с формулой =МЕСЯЦ(A2), в E — номера месяцев, в F — формулу СУММЕСЛИ суммы выручки по месяцу из E. ВАЖНО: каждую ячейку с формулой оберни в кавычки (внутри формул есть «;», иначе Excel разрежет их по ячейкам). Выведи только содержимое CSV.
+
+● QUERY: фильтр и сортировка
+Google Таблицы. Лист «Продажи»: A — книга, B — канал, C — месяц, D — выручка (число). Дай формулу с функцией QUERY: показать книги канала «Ozon» за месяц «Мар», только столбцы «книга» и «выручка», по убыванию выручки. Объясни синтаксис.
+
+● QUERY: сводная с pivot
+Та же таблица. Дай формулу с QUERY: сводная — суммарная выручка по каналам (строки) и месяцам (столбцы), одной формулой. Объясни, что делает pivot.</pre>
+</div>
+
+<footer>
+<b>Как проверены примеры:</b> формулы — реальные ответы DeepSeek на приведённые промпты,
+проверенные на данных из файлов; CSV с формулами сгенерирован DeepSeek и открывается
+с живыми формулами. Модели вероятностны — ваш ответ может отличаться в деталях.<br>
+Названия книг, цифры и цены в примерах вымышлены.<br>
+Ведущий занятия — Ярослав Шуваев · марафон «ИИ в работе», АСТ-Литрес-ЭКСМО, 2026.
+</footer>
+<a class="home-fab" href="index.html">⌂ Все занятия</a>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var src = document.getElementById(b.dataset.src);
+    if (!src) return;
+    navigator.clipboard.writeText(src.textContent).then(function () {
+      var i = b.querySelector('i'); var old = i.textContent;
+      b.classList.add('ok'); i.textContent = 'Скопировано';
+      setTimeout(function () { b.classList.remove('ok'); i.textContent = old; }, 1400);
+    });
+  });
+});
+</script>
+</body></html>
