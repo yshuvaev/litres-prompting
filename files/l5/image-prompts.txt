@@ -29,3 +29,29 @@ Reference image 1 is the identity reference: preserve this exact man's recogniza
 The same man wearing a beautifully fitted dark navy blazer and black shirt, standing naturally in a sophisticated warm contemporary library, softly blurred shelves behind him, no distracting people. Medium portrait from head to just below waist; generous headroom, both hands fully visible. He holds the book upright at lower chest level, front cover parallel to camera, one hand gently supporting its bottom and the other at its outer edge, fingers do not cover text. Realistic book size relative to body. Face and cover equally crisp and clear. Looks directly at the viewer, subtle warm closed-mouth smile, relaxed shoulders. Cinematic soft daylight from a large window, delicate warm edge light, refined natural colors, authentic photographic skin and cloth texture, 70mm portrait lens look, restrained depth of field. Quiet confident author portrait, not artificial glamour.
 Cover text exactly as reference: МЕНЕДЖМЕНТ ЦИФРОВОГО ПРОДУКТА; ОТ ИДЕИ ДО ИДЕАЛА; Ярослав Шуваев; бережливая разработка; agile и scrum; цифровой маркетинг; стратегия и тактика; БОМБОРА.
 No captions, no floating text, no extra books in hands, no decorative effects, no watermarks, no warped book or fingers, no facial beautification or changed identity. Book closed and stable, pose easy to animate with tiny natural movements.
+
+
+SCENE-IDEA
+Model: gpt-image-2
+Input: none
+
+Создай фотореалистичный горизонтальный баннер 16:9 для статьи о книге «Менеджмент цифрового продукта. От идеи до идеала». Передай тему управления продуктом через один образ: светлый рабочий стол, на правой половине которого разрозненные чистые карточки складываются в понятный упорядоченный план. Одна группа карточек разложена свободно, соседняя выстроена ровными рядами. Статичный кадр, не коллаж, не несколько временных фаз. Спокойная деловая атмосфера, мягкий дневной свет слева, реалистичная бумага и светлое дерево. Слева оставь около 40% свободной поверхности стола для будущего заголовка. Сам текст не рисуй. Без книги, людей, букв, цифр, логотипов, цитат и водяных знаков. Вид сверху под небольшим углом; простая чистая композиция.
+
+
+VERTICAL
+Model: gpt-image-2
+Input: minimal.png
+
+Используй приложенный minimal.png как единственный исходник. Это готовая фотография оранжевой книги на светлом постаменте. Адаптируй композицию под вертикальный формат 9:16. Поставь книгу по центру нижних двух третей кадра; сверху оставь свободное место для будущего заголовка. Продолжи светлый фон вверх и постамент вниз. Сохрани саму книгу, её пропорции, оформление, все надписи и имя автора, цвет постамента, мягкий свет сверху слева и характер тени. Книга целиком, без растягивания, обрезки и поворота. Достраивай только фон и поверхность постамента за пределами исходного кадра; не добавляй предметы. Не рисуй заголовки, скидки, логотипы или водяные знаки поверх сцены. Выдай одно изображение указанного формата.
+
+SQUARE
+Model: gpt-image-2
+Input: minimal.png
+
+Используй приложенный minimal.png как единственный исходник. Это готовая фотография оранжевой книги на светлом постаменте. Адаптируй композицию под квадратный формат 1:1. Сделай более свободную квадратную композицию: книга по центру, занимает около половины высоты кадра, постамент виден целиком. Сохрани равные свободные поля по сторонам. Сохрани саму книгу, её пропорции, оформление, все надписи и имя автора, цвет постамента, мягкий свет сверху слева и характер тени. Книга целиком, без растягивания, обрезки и поворота. Достраивай только фон и поверхность постамента за пределами исходного кадра; не добавляй предметы. Не рисуй заголовки, скидки, логотипы или водяные знаки поверх сцены. Выдай одно изображение указанного формата.
+
+HORIZONTAL
+Model: gpt-image-2
+Input: minimal.png
+
+Используй приложенный minimal.png как единственный исходник. Это готовая фотография оранжевой книги на светлом постаменте. Адаптируй композицию под горизонтальный формат 16:9. Размести книгу в правой трети кадра, слева оставь около 45% чистого фона для будущего заголовка. Продолжи постамент и фон по горизонтали. Сохрани саму книгу, её пропорции, оформление, все надписи и имя автора, цвет постамента, мягкий свет сверху слева и характер тени. Книга целиком, без растягивания, обрезки и поворота. Достраивай только фон и поверхность постамента за пределами исходного кадра; не добавляй предметы. Не рисуй заголовки, скидки, логотипы или водяные знаки поверх сцены. Выдай одно изображение указанного формата.
